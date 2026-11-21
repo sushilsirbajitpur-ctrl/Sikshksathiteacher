@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="hi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>स्कैनर → PDF</title>
+<style>
+:root{--bg:#f6f4ee;--card:#fff;--ink:#14231f;--mute:#5b6b66;--line:#e2ded2;--pri:#1f5a3d;--warn:#b42318}
+@media(prefers-color-scheme:dark){:root{--bg:#101a17;--card:#17251f;--ink:#e8f1ed;--mute:#9db0a9;--line:#2b3d36;--pri:#3cc4a8;--warn:#ff8a7a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Noto Sans Devanagari","Mangal",system-ui,sans-serif;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+main{max-width:720px;margin:0 auto;padding:14px 16px 40px}
+h1{font-size:21px;margin:0 0 4px}.sub{color:var(--mute);font-size:14px;margin:0 0 12px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:14px}
+.btn{padding:11px 16px;border:0;border-radius:10px;font:inherit;font-weight:600;color:#fff;background:var(--pri);margin:6px 8px 0 0}
+.btn.g{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.s{padding:6px 10px;font-size:14px;margin:4px 6px 0 0}
+.btn.d{background:transparent;color:var(--warn);border:1px solid var(--warn)}
+select,input[type=text]{width:100%;padding:10px;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px}
+label{display:block;font-size:14px;color:var(--mute);margin:10px 0 3px}
+.it{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}.it:first-child{border-top:0}
+.it img{width:72px;height:96px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:6px}
+#ed{position:fixed;inset:0;z-index:9;background:var(--bg);overflow:auto;padding:env(safe-area-inset-top,0) 12px env(safe-area-inset-bottom,0)}
+#ed.h{display:none}#cv{width:100%;touch-action:none;border-radius:8px;background:#000;display:block}
+.msg{margin-top:8px;font-size:14px;color:var(--warn)}.msg.ok{color:var(--pri)}
+#cm{position:fixed;inset:0;z-index:10;background:#000;display:flex;flex-direction:column;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}#cm.h{display:none}
+.vi{position:relative;flex:1;min-height:0}.vi video{width:100%;height:100%;object-fit:contain;display:block}#ov{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}#cs{color:#fff;text-align:center;padding:8px;font-size:15px}
+</style></head><body><main>
+<h1>स्कैनर → PDF</h1>
+<p class="sub">काग़ज़ की फ़ोटो खींचिए, किनारे ठीक कीजिए, साफ़ PDF बनाइए। फ़ोटो फ़ोन से बाहर नहीं जाती।</p>
+<div class="box">
+ <input id="f1" type="file" accept="image/*" capture="environment" hidden onchange="add(this)">
+ <input id="f2" type="file" accept="image/*" multiple hidden onchange="add(this)">
+ <button class="btn" onclick="camOpen()">🎯 ऑटो स्कैन (अपने-आप खींचे)</button>
+ <button class="btn g" onclick="$('f1').click()">📷 कैमरे से पन्ना खींचें</button>
+ <button class="btn g" onclick="$('f2').click()">🖼 गैलरी से चुनें</button>
+ <label>स्कैन का रूप (सब पन्नों पर)</label>
+ <select id="gf" onchange="setF(this.value)"><option value="clean">साफ़ (रंगीन)</option><option value="bw">काला-सफ़ेद (लिखावट के लिए)</option><option value="gray">ग्रे</option><option value="orig">मूल फ़ोटो</option></select>
+</div>
+<div class="box"><b>पन्ने <span id="cnt">(0)</span></b><div id="L"></div></div>
+<div class="box">
+ <label>फ़ाइल का नाम</label><input id="nm" type="text" placeholder="scan">
+ <label>PDF का आकार</label>
+ <select id="q"><option value="1400,0.72">छोटा (WhatsApp के लिए)</option><option value="2000,0.82" selected>सामान्य</option><option value="2800,0.9">बढ़िया (प्रिंट के लिए)</option></select>
+ <label>PDF को इतना छोटा करें</label>
+ <select id="tg"><option value="0">कोई सीमा नहीं</option><option value="150">150 KB तक</option><option value="300">300 KB तक</option><option value="500">500 KB तक</option><option value="1000" selected>1 MB तक</option><option value="2000">2 MB तक</option></select>
+ <button class="btn" onclick="mk()">📄 PDF बनाएँ और शेयर करें</button>
+ <div class="msg" id="m"></div>
+</div>
+</main>
+<div id="cm" class="h"><div class="vi"><video id="vid" playsinline muted></video><canvas id="ov"></canvas></div><div id="cs"></div><div style="text-align:center;padding:0 8px 10px"><button class="btn g" style="color:#fff" onclick="shot(CAM&&CAM.last)">📸 अभी खींचें</button><button class="btn" onclick="camClose()">✓ पूरा हुआ (<span id="cn">0</span>)</button></div></div>
+<div id="ed" class="h">
+ <h1 style="margin-top:12px">किनारे ठीक कीजिए</h1>
+ <p class="sub">चारों हरे गोलों को काग़ज़ के कोनों पर खींचकर रखिए।</p>
+ <canvas id="cv"></canvas>
+ <button class="btn" onclick="eDone()">✓ हो गया</button><button class="btn g" onclick="eAuto()">🎯 अपने-आप</button><button class="btn g" onclick="eFull()">पूरा पन्ना</button><button class="btn g" onclick="eRot()">↻ घुमाएँ</button><button class="btn g" onclick="eCancel()">रद्द</button>
+</div>
+<script>
+var $=function(i){return document.getElementById(i)},P=[],gf="clean",E=null,busy=0,tick=function(){return new Promise(function(r){setTimeout(r,0)})};
+function msg(t,ok){var m=$("m");m.textContent=t||"";m.className="msg"+(ok?" ok":"")}
+function load(f){return createImageBitmap(f,{imageOrientation:"from-image"}).then(function(b){var k=Math.min(1,2600/Math.max(b.width,b.height)),c=document.createElement("canvas");c.width=Math.round(b.width*k);c.height=Math.round(b.height*k);c.getContext("2d").drawImage(b,0,0,c.width,c.height);return c})}
+async function add(inp){var fs=[].slice.call(inp.files);inp.value="";
+ for(var i=0;i<fs.length;i++){try{var c=await load(fs[i]);P.push({src:c,c:detect(c,c.width,c.height)||[[.04,.04],[.96,.04],[.96,.96],[.04,.96]],rot:0})}catch(e){msg("एक फ़ोटो खुल नहीं सकी।")}}
+ render()}
+function dist(a,b){return Math.hypot(a[0]-b[0],a[1]-b[1])}
+function rot(c,n){n%=4;if(!n)return c;var o=document.createElement("canvas"),s=n%2;o.width=s?c.height:c.width;o.height=s?c.width:c.height;var x=o.getContext("2d");x.translate(o.width/2,o.height/2);x.rotate(n*Math.PI/2);x.drawImage(c,-c.width/2,-c.height/2);return o}
+function proc(p,max){
+ var s=p.src,W=s.width,H=s.height,q=p.c.map(function(a){return[a[0]*W,a[1]*H]}),
+ w=Math.max(dist(q[0],q[1]),dist(q[3],q[2])),h=Math.max(dist(q[0],q[3]),dist(q[1],q[2])),k=Math.min(1,max/Math.max(w,h));
+ w=Math.max(8,Math.round(w*k));h=Math.max(8,Math.round(h*k));
+ var x0=q[0][0],y0=q[0][1],x1=q[1][0],y1=q[1][1],x2=q[2][0],y2=q[2][1],x3=q[3][0],y3=q[3][1],
+ dx1=x1-x2,dx2=x3-x2,dx3=x0-x1+x2-x3,dy1=y1-y2,dy2=y3-y2,dy3=y0-y1+y2-y3,
+ D=dx1*dy2-dy1*dx2||1e-9,g=(dx3*dy2-dy3*dx2)/D,t=(dx1*dy3-dy1*dx3)/D,
+ a=x1-x0+g*x1,b=x3-x0+t*x3,d=y1-y0+g*y1,e=y3-y0+t*y3,
+ sd=s.getContext("2d").getImageData(0,0,W,H).data,o=document.createElement("canvas");
+ o.width=w;o.height=h;var ox=o.getContext("2d"),od=ox.createImageData(w,h),r=od.data;
+ for(var y=0;y<h;y++)for(var x=0;x<w;x++){
+  var u=(x+.5)/w,v=(y+.5)/h,z=g*u+t*v+1,sx=(a*u+b*v+x0)/z-.5,sy=(d*u+e*v+y0)/z-.5;
+  sx=Math.min(W-1.001,Math.max(0,sx));sy=Math.min(H-1.001,Math.max(0,sy));
+  var ix=sx|0,iy=sy|0,fx=sx-ix,fy=sy-iy,i=(iy*W+ix)*4,j=i+4*W,m=(y*w+x)*4;
+  for(var n=0;n<3;n++)r[m+n]=(sd[i+n]*(1-fx)+sd[i+4+n]*fx)*(1-fy)+(sd[j+n]*(1-fx)+sd[j+4+n]*fx)*fy;
+  r[m+3]=255}
+ ox.putImageData(od,0,0);o=rot(o,p.rot);
+ return gf==="orig"?o:filt(o,gf)}
+function filt(o,f){
+ var x=o.getContext("2d"),w=o.width,h=o.height,im=x.getImageData(0,0,w,h),d=im.data,n=w*h,i,L=function(i){return .299*d[i]+.587*d[i+1]+.114*d[i+2]};
+ if(f==="bw"){
+  var gr=new Float32Array(n),I=new Float64Array((w+1)*(h+1)),r=Math.max(7,Math.round(w/32)),W1=w+1;
+  for(i=0;i<n;i++)gr[i]=L(i*4);
+  for(var y=0;y<h;y++){var rs=0;for(var xx=0;xx<w;xx++){rs+=gr[y*w+xx];I[(y+1)*W1+xx+1]=I[y*W1+xx+1]+rs}}
+  for(y=0;y<h;y++)for(xx=0;xx<w;xx++){
+   var a=Math.max(0,xx-r),b=Math.min(w,xx+r+1),c=Math.max(0,y-r),e=Math.min(h,y+r+1),
+   mean=(I[e*W1+b]-I[c*W1+b]-I[e*W1+a]+I[c*W1+a])/((b-a)*(e-c)),
+   v=gr[y*w+xx]<mean*.9?0:255,p=(y*w+xx)*4;d[p]=d[p+1]=d[p+2]=v}
+ }else{
+  var H=new Uint32Array(256),cnt=0;
+  for(i=0;i<n;i+=3){H[L(i*4)|0]++;cnt++}
+  var pc=function(q){var s=0,k=0;for(;k<255;k++){s+=H[k];if(s>=cnt*q)break}return k},lo=pc(.02),hi=Math.max(lo+30,pc(.7)),sc=255/(hi-lo);
+  for(i=0;i<n;i++){var p=i*4,R=d[p],G=d[p+1],B=d[p+2];
+   if(f==="gray"){R=G=B=.299*R+.587*G+.114*B}
+   d[p]=(R-lo)*sc;d[p+1]=(G-lo)*sc;d[p+2]=(B-lo)*sc}
+ }
+ x.putImageData(im,0,0);return o}
+/* किनारे अपने-आप पहचानना: सबसे बड़ा चमकीला हिस्सा (काग़ज़) ढूँढकर उसके चार कोने */
+function detect(el,sw,sh){
+ var W=96,H=Math.max(8,Math.round(W*sh/sw)),N=W*H,c=detect.c||(detect.c=document.createElement("canvas"));
+ c.width=W;c.height=H;var x=c.getContext("2d",{willReadFrequently:true});x.drawImage(el,0,0,W,H);
+ var d=x.getImageData(0,0,W,H).data,g=new Uint8Array(N),hs=new Uint32Array(256),i,k,sum=0,sb=0,wb=0,mx=0,th=128;
+ for(i=0;i<N;i++){g[i]=.299*d[i*4]+.587*d[i*4+1]+.114*d[i*4+2];hs[g[i]]++;sum+=g[i]}
+ for(k=0;k<256;k++){wb+=hs[k];if(!wb)continue;var wf=N-wb;if(!wf)break;sb+=k*hs[k];var mb=sb/wb,mf=(sum-sb)/wf,bt=wb*wf*(mb-mf)*(mb-mf);if(bt>mx){mx=bt;th=k}}
+ var seen=new Uint8Array(N),stk=new Int32Array(N),best=null,bs=0;
+ for(i=0;i<N;i++){if(seen[i]||g[i]<=th)continue;
+  var sp=0,cnt=0,v=[1e9,-1e9,-1e9,1e9],q=[[0,0],[0,0],[0,0],[0,0]];stk[sp++]=i;seen[i]=1;
+  while(sp){var p=stk[--sp],px=p%W,py=(p/W)|0,s1=px+py,s2=px-py;cnt++;
+   if(s1<v[0]){v[0]=s1;q[0]=[px,py]}if(s1>v[1]){v[1]=s1;q[1]=[px,py]}if(s2>v[2]){v[2]=s2;q[2]=[px,py]}if(s2<v[3]){v[3]=s2;q[3]=[px,py]}
+   if(px>0&&!seen[p-1]&&g[p-1]>th){seen[p-1]=1;stk[sp++]=p-1}
+   if(px<W-1&&!seen[p+1]&&g[p+1]>th){seen[p+1]=1;stk[sp++]=p+1}
+   if(py>0&&!seen[p-W]&&g[p-W]>th){seen[p-W]=1;stk[sp++]=p-W}
+   if(py<H-1&&!seen[p+W]&&g[p+W]>th){seen[p+W]=1;stk[sp++]=p+W}}
+  if(cnt>bs){bs=cnt;best=q}}
+ if(!best||bs<N*.12||bs>N*.95)return null;
+ var Q=[best[0],best[2],best[1],best[3]],ar=0;
+ for(i=0;i<4;i++){var A=Q[i],B=Q[(i+1)%4];ar+=A[0]*B[1]-B[0]*A[1]}
+ ar=Math.abs(ar)/2;if(!ar||bs/ar<.7||bs/ar>1.2)return null;
+ return Q.map(function(a){return[(a[0]+.5)/W,(a[1]+.5)/H]})}
+function eAuto(){var s=P[E.i].src,r=detect(s,s.width,s.height);if(r){E.c=r;eDraw()}else alert("किनारे पहचान में नहीं आए। हाथ से ठीक कीजिए।")}
+/* ऑटो स्कैन: पन्ना मिलने के बाद लगभग 1 सेकंड स्थिर रहे तो अपने-आप खींचता है */
+var CAM=null;
+async function camOpen(){
+ var st;try{st=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment",width:{ideal:1920}},audio:false})}catch(e){msg("कैमरा नहीं खुला। 'कैमरे से पन्ना खींचें' इस्तेमाल कीजिए।");return}
+ var v=$("vid");v.srcObject=st;try{await v.play()}catch(e){}
+ $("cm").classList.remove("h");$("cn").textContent=P.length;CAM={st:st,last:null,t:0,lock:0,run:1};loop()}
+function camClose(){if(CAM){CAM.run=0;CAM.st.getTracks().forEach(function(t){t.stop()});CAM=null}$("cm").classList.add("h");render()}
+async function shot(r){var v=$("vid");if(!v.videoWidth)return;var k=Math.min(1,2600/Math.max(v.videoWidth,v.videoHeight)),c=document.createElement("canvas");c.width=Math.round(v.videoWidth*k);c.height=Math.round(v.videoHeight*k);c.getContext("2d").drawImage(v,0,0,c.width,c.height);P.push({src:c,c:r||[[.04,.04],[.96,.04],[.96,.96],[.04,.96]],rot:0});if(navigator.vibrate)navigator.vibrate(60);$("cn").textContent=P.length}
+async function loop(){
+ var C=CAM;if(!C||!C.run)return;
+ var v=$("vid"),ov=$("ov"),cw=ov.clientWidth,ch=ov.clientHeight;
+ if(v.videoWidth&&cw){
+  if(ov.width!==cw||ov.height!==ch){ov.width=cw;ov.height=ch}
+  var r=detect(v,v.videoWidth,v.videoHeight),x=ov.getContext("2d"),vw=v.videoWidth,vh=v.videoHeight,s=Math.min(cw/vw,ch/vh),ox=(cw-vw*s)/2,oy=(ch-vh*s)/2;
+  x.clearRect(0,0,cw,ch);
+  if(r){x.beginPath();r.forEach(function(a,k){x[k?"lineTo":"moveTo"](ox+a[0]*vw*s,oy+a[1]*vh*s)});x.closePath();x.fillStyle="rgba(60,196,168,.2)";x.fill();x.lineWidth=4;x.strokeStyle="#3cc4a8";x.stroke()}
+  var mv=r&&C.last?Math.max.apply(0,r.map(function(a,k){return Math.hypot(a[0]-C.last[k][0],a[1]-C.last[k][1])})):9,now=Date.now();
+  if(C.lock){if(!r||mv>.08)C.lock=0}
+  else if(r&&mv<.025){if(!C.t)C.t=now;if(now-C.t>1200){await shot(r);C.lock=1;C.t=0}}
+  else C.t=0;
+  C.last=r;$("cs").textContent=C.lock?"✓ जुड़ गया। अगला पन्ना रखिए।":r?(C.t?"स्थिर रखिए...":"पन्ना मिल गया"):"पन्ना कैमरे के सामने रखिए (गहरी सतह पर बेहतर)"}
+ if(CAM===C&&C.run)setTimeout(loop,150)}
+async function render(){
+ if(busy){busy=2;return}busy=1;
+ for(var i=0;i<P.length;i++){if(!P[i].th){P[i].th=proc(P[i],260).toDataURL("image/jpeg",.6);await tick()}}
+ $("cnt").textContent="("+P.length+")";
+ $("L").innerHTML=P.length?P.map(function(p,i){return'<div class="it"><img src="'+p.th+'"><div><b>पन्ना '+(i+1)+'</b><br><button class="btn s g" onclick="edit('+i+')">✂ सुधारें</button><button class="btn s g" onclick="rt('+i+')">↻</button><button class="btn s g" onclick="mv('+i+',-1)">↑</button><button class="btn s g" onclick="mv('+i+',1)">↓</button><button class="btn s d" onclick="del('+i+')">🗑</button></div></div>'}).join(""):'<p class="sub">ऊपर से पन्ना जोड़िए।</p>';
+ if(busy===2){busy=0;return render()}busy=0}
+function setF(v){gf=v;P.forEach(function(p){p.th=null});render()}
+function rt(i){P[i].rot=(P[i].rot+1)%4;P[i].th=null;render()}
+function mv(i,k){var j=i+k;if(j<0||j>=P.length)return;var t=P[i];P[i]=P[j];P[j]=t;render()}
+function del(i){if(confirm("यह पन्ना हटाएँ?")){P.splice(i,1);render()}}
+/* किनारे ठीक करना */
+function edit(i){E={i:i,c:P[i].c.map(function(a){return a.slice()}),d:-1};var s=P[i].src,cv=$("cv");cv.width=Math.min(innerWidth-24,700);cv.height=Math.round(cv.width*s.height/s.width);$("ed").classList.remove("h");eDraw()}
+function eDraw(){
+ var cv=$("cv"),x=cv.getContext("2d"),w=cv.width,h=cv.height,c=E.c;
+ x.drawImage(P[E.i].src,0,0,w,h);x.beginPath();c.forEach(function(a,k){x[k?"lineTo":"moveTo"](a[0]*w,a[1]*h)});x.closePath();
+ x.fillStyle="rgba(60,196,168,.15)";x.fill();x.lineWidth=3;x.strokeStyle="#3cc4a8";x.stroke();
+ c.forEach(function(a){x.beginPath();x.arc(a[0]*w,a[1]*h,16,0,7);x.fillStyle="rgba(60,196,168,.6)";x.fill();x.stroke()})}
+function ePos(ev){var r=$("cv").getBoundingClientRect();return[(ev.clientX-r.left)/r.width,(ev.clientY-r.top)/r.height]}
+var cvEl=$("cv");
+cvEl.addEventListener("pointerdown",function(ev){var p=ePos(ev),b=1e9;E.d=-1;E.c.forEach(function(a,k){var q=Math.hypot((a[0]-p[0])*cvEl.width,(a[1]-p[1])*cvEl.height);if(q<b&&q<60){b=q;E.d=k}});if(E.d>=0)cvEl.setPointerCapture(ev.pointerId)});
+cvEl.addEventListener("pointermove",function(ev){if(!E||E.d<0)return;var p=ePos(ev);E.c[E.d]=[Math.min(1,Math.max(0,p[0])),Math.min(1,Math.max(0,p[1]))];eDraw()});
+cvEl.addEventListener("pointerup",function(){if(E)E.d=-1});
+function eDone(){P[E.i].c=E.c;P[E.i].th=null;eCancel();render()}
+function eFull(){E.c=[[0,0],[1,0],[1,1],[0,1]];eDraw()}
+function eRot(){P[E.i].rot=(P[E.i].rot+1)%4;P[E.i].th=null}
+function eCancel(){$("ed").classList.add("h");E=null}
+/* PDF: सीधे JPEG पन्नों से, कोई बाहरी लाइब्रेरी नहीं */
+function mkPdf(J){
+ var enc=new TextEncoder(),parts=[],off=[],len=0,N=J.length;
+ function add(x){var u=typeof x==="string"?enc.encode(x):x;parts.push(u);len+=u.length}
+ function obj(n,fn){off[n]=len;add(n+" 0 obj\n");fn();add("\nendobj\n")}
+ add("%PDF-1.4\n");
+ obj(1,function(){add("<</Type/Catalog/Pages 2 0 R>>")});
+ obj(2,function(){add("<</Type/Pages/Count "+N+"/Kids["+J.map(function(_,i){return(3+i*3)+" 0 R"}).join(" ")+"]>>")});
+ J.forEach(function(j,i){var p=3+i*3,k=Math.min(595/j.w,842/j.h),w=j.w*k,h=j.h*k,x=(595-w)/2,y=(842-h)/2,
+  c="q "+w.toFixed(2)+" 0 0 "+h.toFixed(2)+" "+x.toFixed(2)+" "+y.toFixed(2)+" cm /Im0 Do Q";
+  obj(p,function(){add("<</Type/Page/Parent 2 0 R/MediaBox[0 0 595 842]/Resources<</XObject<</Im0 "+(p+2)+" 0 R>>>>/Contents "+(p+1)+" 0 R>>")});
+  obj(p+1,function(){add("<</Length "+c.length+">>stream\n"+c+"\nendstream")});
+  obj(p+2,function(){add("<</Type/XObject/Subtype/Image/Width "+j.w+"/Height "+j.h+"/ColorSpace/DeviceRGB/BitsPerComponent 8/Filter/DCTDecode/Length "+j.b.length+">>stream\n");add(j.b);add("\nendstream")})});
+ var xr=len,T=3*N+3;add("xref\n0 "+T+"\n0000000000 65535 f \n");
+ for(var n=1;n<T;n++)add(String(off[n]).padStart(10,"0")+" 00000 n \n");
+ add("trailer\n<</Size "+T+"/Root 1 0 R>>\nstartxref\n"+xr+"\n%%EOF");
+ return new Blob(parts,{type:"application/pdf"})}
+async function enc(C,ql){var J=[],t=0;for(var i=0;i<C.length;i++){var b=await new Promise(function(r){C[i].toBlob(r,"image/jpeg",ql)}),u=new Uint8Array(await b.arrayBuffer());t+=u.length;J.push({b:u,w:C[i].width,h:C[i].height})}return{J:J,t:t}}
+function shr(c){if(c.width<500)return c;var o=document.createElement("canvas");o.width=Math.round(c.width*.85);o.height=Math.round(c.height*.85);o.getContext("2d").drawImage(c,0,0,o.width,o.height);return o}
+async function mk(){
+ if(!P.length){msg("पहले पन्ने जोड़िए।");return}
+ var q=$("q").value.split(","),max=+q[0],ql=+q[1],C=[],R;msg("");
+ try{
+  for(var i=0;i<P.length;i++){msg("पन्ना "+(i+1)+"/"+P.length+" बन रहा है...");await tick();
+   C.push(proc(P[i],max))}
+  R=await enc(C,ql);var tg=+$("tg").value*1024;
+  for(var k=0;k<10&&tg&&R.t>tg;k++){msg("PDF छोटी कर रहे हैं...");await tick();if(ql>.5)ql=Math.max(.5,ql-.12);else C=C.map(shr);R=await enc(C,ql)}
+ }catch(e){msg("PDF नहीं बन सकी। 'छोटा' आकार चुनकर फिर कोशिश कीजिए।");return}
+ msg("PDF तैयार: "+Math.round(R.t/1024)+" KB"+(tg&&R.t>tg?" (सीमा से बड़ी है, पन्ने कम कीजिए)":""),1);
+ var pdf=mkPdf(R.J),nm=($("nm").value.trim()||"scan").replace(/[\\\/:*?"<>|]/g,"_")+".pdf",f=new File([pdf],nm,{type:"application/pdf"});
+ try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f]});msg("शेयर हो गया ✓",1);return}}catch(e){if(e&&e.name==="AbortError"){msg("");return}}
+ var a=document.createElement("a");a.href=URL.createObjectURL(pdf);a.download=nm;document.body.appendChild(a);a.click();a.remove();
+ msg("PDF डाउनलोड हो गई ("+Math.round(pdf.size/1024)+" KB)। फ़ाइल्स में देखिए।",1)}
+render();
+</script></body></html>
