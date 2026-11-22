@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>शिक्षक साथी बिहार</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#1f5a3d">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f6f4;--card:#fff;--ink:#14231f;--mute:#5b6b66;--line:#d5dfdb;--pri:#0f6b5c;--warn:#b42318}
+@media (prefers-color-scheme:dark){:root{--bg:#101a17;--card:#17251f;--ink:#e8f1ed;--mute:#9db0a9;--line:#2b3d36;--pri:#3cc4a8;--warn:#ff8a7a}}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Noto Sans Devanagari","Mangal",system-ui,sans-serif;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+main{padding:14px 16px 40px;max-width:720px;margin:0 auto}
+h1{font-size:21px;margin:0 0 4px}h2{font-size:17px;margin:0 0 8px}
+.sub{color:var(--mute);font-size:14px;margin:0 0 12px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
+label{display:block;font-size:14px;color:var(--mute);margin:10px 0 3px}
+input,select,textarea{width:100%;padding:10px;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px}
+input:disabled{opacity:.7}textarea{min-height:110px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{padding:11px 16px;border:0;border-radius:8px;font:inherit;font-weight:600;color:#fff;background:var(--pri);margin:12px 8px 0 0}
+.btn.g{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.s{padding:6px 12px;margin:0;font-size:14px}.btn.d{background:transparent;color:var(--warn);border:1px solid var(--warn)}
+.btn:disabled{opacity:.5}
+.tabs{display:flex;gap:8px;margin-bottom:12px}
+.tabs button{flex:1;padding:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;font:inherit;font-weight:600}
+.tabs button.on{border-color:var(--pri);color:var(--pri)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.chip{font-size:12px;padding:2px 10px;border-radius:99px;color:#fff;background:#6b7280}.chip.p{background:#b45309}.chip.a{background:#6d28d9}
+.msg{margin-top:8px;font-size:14px;color:var(--warn)}.msg.ok{color:var(--pri)}
+.hide{display:none!important}
+.lst{max-height:380px;overflow-y:auto;border:1px solid var(--line);border-radius:8px;padding:0 10px}
+.item{padding:10px 0;border-top:1px solid var(--line)}.item:first-child{border-top:0}
+.badge{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;margin:0 4px 2px 0;color:#fff}
+.b1{background:#1d4ed8}.b2{background:#b45309}.b3{background:#0f6b5c}.b4{background:#6d28d9}
+.note{white-space:pre-wrap;margin:4px 0;color:var(--mute);font-size:15px}
+.acts{display:flex;gap:6px;margin-top:4px}
+.lock{color:var(--mute);font-size:14px;background:var(--bg);padding:10px;border-radius:8px;margin-bottom:8px}
+@media (prefers-color-scheme:light){:root{--bg:#f6f4ee;--pri:#1f5a3d;--line:#e2ded2}}
+.banner{background:linear-gradient(135deg,#1f5a3d,#2f7a55);color:#fff;border-radius:18px;padding:18px;margin-bottom:14px}
+.banner .mono{font:12px monospace;color:#e9c46a}.banner .bt{font-size:21px;font-weight:600;margin:6px 0 4px}.banner .bs{font-size:14px;opacity:.92}
+.pill{font-size:12px;background:var(--bg);border-radius:99px;padding:2px 10px;color:var(--mute);font-weight:400;float:right}
+.dr{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--line)}.dr:first-child{border-top:0}
+.nt{padding:12px 0;border-top:1px solid var(--line)}.nt:first-child{border-top:0}
+.foot{display:flex;justify-content:space-between;margin-top:6px}
+.hc{display:grid;grid-template-columns:1fr 1fr;gap:12px}.hc button{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 10px;font:inherit;font-weight:600;color:var(--ink);font-size:16px}.hc button span{display:block;font-size:30px}
+.box{border-radius:16px}
+.pic{max-width:100%;border-radius:8px;margin:6px 0;display:block}
+.sheet.long{height:auto;min-height:296mm;overflow:visible}.sheet.long .in{height:auto}.sheet.long .bd{height:auto;overflow:visible}
+.soc a{display:block;margin-top:8px;padding:12px;border:1px solid var(--line);border-radius:12px;color:var(--ink);text-decoration:none;font-weight:600;background:var(--card)}
+.bdg2{display:inline-block;min-width:20px;padding:0 6px;border-radius:99px;background:#d92d20;color:#fff;font-size:12px;font-style:normal;margin-left:4px}
+.hc button.lk{opacity:.55}.hc button.lk::after{content:" 🔒"}
+.dh{font-weight:600;color:var(--pri);margin:12px 0 2px;font-size:15px}
+#pap{display:none}
+@media print{@page{size:A4;margin:0}body>*{display:none!important}body.pp #pap{display:block!important}body.pp{background:#fff;padding:0}#pap .sheet{border:0;margin:0}}
+.sheet{position:relative;background:#fff;color:#000;width:210mm;height:296mm;margin:0 auto;border:1px solid #999;overflow:hidden;font-size:15px}
+.sheet .in{position:relative;height:100%}.sheet .hd{height:20%;padding:7mm 10mm 3mm;border-bottom:2px solid #000;font-size:14px;overflow:hidden}
+.sheet .bd{height:80%;padding:5mm 12mm;overflow:hidden}.sheet h3{text-align:center;font-size:21px;margin:0;line-height:1.3}
+.sheet .sub2{text-align:center;margin:0 0 5px}.sheet .meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px 10px;border:1.5px solid #000;padding:4px 8px;margin:4px 0 6px;font-size:14px}
+.sheet ol{padding-left:22px;margin:10px 0}.sheet li{margin-bottom:22px}
+.wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:90px;font-weight:700;color:rgba(0,0,0,.07);transform:rotate(-35deg);pointer-events:none;white-space:nowrap}
+.scrollx{overflow-x:auto}
+
+</style>
+</head>
+<body>
+<main>
+<section id="auth">
+ <h1>शिक्षक साथी बिहार</h1><p class="sub">शिक्षकों का अपना निजी डिजिटल कार्यक्षेत्र</p><p class="sub">यह एक स्वतंत्र निजी मंच है। यह किसी सरकारी विभाग या सरकारी संस्था का ऐप नहीं है।</p>
+ <div class="tabs"><button id="tL" class="on" onclick="atab('L')">लॉगिन</button><button id="tR" onclick="atab('R')">नया पंजीकरण</button></div>
+ <div class="box" id="fL">
+  <label>मोबाइल नंबर (10 अंक)</label><input id="lMob" type="tel" maxlength="10" inputmode="numeric" autocomplete="username">
+  <label>पासवर्ड</label><input id="lPw" type="password" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false"><label style="display:flex;gap:6px;align-items:center;margin:6px 0 0;font-size:14px"><input type="checkbox" style="width:auto" onchange="$('lPw').type=this.checked?'text':'password'"> पासवर्ड दिखाएँ</label>
+  <button class="btn" id="bL" onclick="login()">लॉगिन करें</button>
+  <div class="msg" id="lMsg"></div>
+ </div>
+ <div class="box hide" id="fR">
+  <label>पूरा नाम</label><input id="rName">
+  <label>मोबाइल नंबर (यही आपकी User ID होगी)</label><input id="rMob" type="tel" maxlength="10" inputmode="numeric">
+  <label>Gmail (पासवर्ड भूलने पर काम आएगा)</label><input id="rMail" type="email">
+  <label>पासवर्ड (कम से कम 6 अक्षर, 8 या ज़्यादा बेहतर)</label><input id="rPw" type="password" autocomplete="new-password" autocapitalize="off" autocorrect="off" spellcheck="false"><label style="display:flex;gap:6px;align-items:center;margin:6px 0 0;font-size:14px"><input type="checkbox" style="width:auto" onchange="$('rPw').type=this.checked?'text':'password'"> पासवर्ड दिखाएँ</label>
+  <div id="locSel">
+   <label>जिला</label><select id="rD" onchange="cas(1)"></select>
+   <label>प्रखंड</label><select id="rB" onchange="cas(2)"></select>
+   <label>पंचायत</label><select id="rP" onchange="cas(3)"></select>
+   <label>विद्यालय</label><select id="rS"></select>
+  </div>
+  <div id="locTxt" class="hide">
+   <p class="sub">अभी सूची तैयार नहीं है, इसलिए खुद लिखिए।</p>
+   <label>जिला</label><input id="xD"><label>प्रखंड</label><input id="xB">
+   <label>विद्यालय का UDISE कोड (11 अंक)</label><input id="xP" type="tel" maxlength="11" inputmode="numeric"><label>विद्यालय का नाम</label><input id="xS">
+  </div>
+  <button class="btn" id="bR" onclick="reg()">पंजीकरण करें</button>
+  <div class="msg" id="rMsg"></div>
+ </div>
+</section>
+
+<section id="app" class="hide">
+ <div class="top"><div><h1 id="uName"></h1><div class="sub" id="uSch" style="margin:0"></div></div>
+  <div style="text-align:right"><span class="chip" id="uChip"></span><br><button class="btn g s" style="margin-top:6px" onclick="$('pwBox').classList.toggle('hide')">🔑 पासवर्ड बदलें</button> <button class="btn g s" style="margin-top:6px" onclick="logout()">बाहर निकलें</button></div></div>
+ <div class="box hide" id="pwBox"><h2>पासवर्ड बदलें</h2>
+  <label>अभी का पासवर्ड</label><input id="pw0" type="password" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false">
+  <label>नया पासवर्ड (कम से कम 8 अक्षर)</label><input id="pw1" type="password" autocomplete="new-password" autocapitalize="off" autocorrect="off" spellcheck="false">
+  <label>नया पासवर्ड फिर से</label><input id="pw2" type="password" autocomplete="new-password" autocapitalize="off" autocorrect="off" spellcheck="false">
+  <label style="display:flex;gap:6px;align-items:center;margin:6px 0 0;font-size:14px"><input type="checkbox" style="width:auto" onchange="['pw0','pw1','pw2'].forEach(function(i){$(i).type=this.checked?'text':'password'},this)"> पासवर्ड दिखाएँ</label>
+  <button class="btn" id="pwB" onclick="changePw()">पासवर्ड बदलें</button><button class="btn g" onclick="$('pwBox').classList.add('hide')">बंद करें</button>
+  <hr style="border:0;border-top:1px solid var(--line);margin:14px 0 6px"><button class="btn d s" onclick="delReq()">🗑 खाता हटाने का अनुरोध</button><div class="msg" id="pwM"></div></div>
+ <div class="box hide" id="adm"><b>आप सुपर एडमिन हैं।</b><div class="sub" style="margin:4px 0 0">एडमिन पैनल अलग वेब पते पर है। यहाँ आप शिक्षक की तरह देख सकते हैं।</div></div>
+ <div id="vH"><div class="banner"><div class="mono" id="hD"></div><div class="bt">नमस्ते</div><div class="bs" id="hS"></div></div>
+  <div class="hc" id="hc">
+   <button data-t="T" onclick="show('T')"><span>📒</span>पाठ-टीका</button>
+   <button data-t="Q" onclick="show('Q')"><span>📝</span>प्रश्न पत्र</button>
+   <button data-t="N" onclick="show('N')"><span>📰</span>समाचार और सूचना <i class="bdg2 hide" id="bgN"></i></button>
+   <button data-t="C" onclick="show('C')"><span>📷</span>GPS कैमरा</button>
+   <button data-t="D" onclick="show('D')"><span>📔</span>डायरी</button>
+   <button data-t="M" onclick="show('M')"><span>🗓</span>मासिक पाठ योजना</button>
+   <button data-t="Z" onclick="show('Z')"><span>🎯</span>क्विज़</button>
+   <button data-t="S" onclick="show('S')"><span>📄</span>स्कैनर → PDF</button>
+   <button data-t="K" onclick="show('K')"><span>✉️</span>एडमिन को संदेश <i class="bdg2 hide" id="bgK"></i></button>
+  </div>
+  <div class="soc" id="soc"></div><button id="inst" class="btn g hide" onclick="doInstall()">📲 ऐप की तरह जोड़ें</button><p class="sub" id="hLock" style="margin-top:12px"></p></div>
+ <div id="vT" class="hide">
+  <div class="banner"><div class="mono" id="bDate"></div><div class="bt">आज की कक्षा, आपकी तैयारी।</div><div class="bs"><span id="bSch"></span> · हर घंटी के लिए अपनी कक्षा और विषय चुनें</div></div>
+  <div class="sub" style="margin:0">शिक्षक कार्यक्षेत्र</div><h1>पाठ-टीका</h1><p class="sub">दिनांक चुनें; हर घंटी के लिए कक्षा और विषय अलग तय करें।</p>
+  <div id="lockMsg" class="lock hide">मुफ़्त खाते में सिर्फ़ आज की तारीख़ चुनी जा सकती है। पुरानी तारीख़ों के लिए प्रीमियम चाहिए।</div>
+  <div class="box"><h2>घंटी और विषय चुनें</h2><p class="sub">हर घंटी का चयन सूची में जोड़ें, फिर अंत में सब सहेजें।</p>
+   <div class="row"><div><label>दिनांक</label><select id="dDate" onchange="dLoad()"></select></div><div><label>घंटी</label><select id="dBell"></select></div></div>
+   <div class="row"><div><label>कक्षा</label><select id="dCls"></select></div><div><label>विषय</label><select id="dSub"></select></div></div>
+   <button class="btn" onclick="dAdd()">+ इस घंटी को जोड़ें</button><div class="msg" id="dMsg"></div></div>
+  <div class="box"><h2>चुनी हुई घंटियाँ <span class="pill" id="chCnt"></span></h2><div id="chList"></div><button class="btn" onclick="dSaveAll()">सब सहेजें</button></div>
+  <div class="box"><h2>सहेजी गई पाठ-टीका <span class="pill" id="svCnt"></span></h2><div class="lst" id="svList"></div></div>
+  <div class="foot"><button class="btn g" onclick="show('H')">← वापस</button><button class="btn" onclick="show('H')">🏠 मुख्य पृष्ठ</button></div>
+ </div>
+ <div id="vN" class="hide"><div class="box"><h2>समाचार, आदेश और सूचना</h2>
+   <div class="row"><select id="nC" onchange="listN()"></select><select id="nM" onchange="listN()"></select></div>
+   <input id="nQ" placeholder="शब्द से खोजें" oninput="listN()" style="margin-top:8px">
+   <div class="lst" id="nList" style="margin-top:8px"></div><div class="msg" id="nMsg"></div></div><div class="foot"><button class="btn g" onclick="show('H')">← वापस</button><button class="btn" onclick="show('H')">🏠 मुख्य पृष्ठ</button></div></div>
+ <div id="vK" class="hide"><div class="box"><h2>एडमिन को संदेश लिखें</h2><p class="sub">गलती, सुझाव या सवाल लिखिए। एडमिन चाहें तो जवाब देंगे।</p>
+   <label>विषय</label><select id="kK"><option>सामान्य</option><option>पाठ-टीका</option><option>प्रश्न पत्र</option><option>समाचार / सूचना</option><option>अन्य</option></select>
+   <label>आपका संदेश</label><textarea id="kB"></textarea><button class="btn" id="kBtn" onclick="sendK()">भेजें</button><div class="msg" id="kMsg"></div></div>
+  <div class="box"><h2>मेरे संदेश <span class="pill" id="kCnt"></span></h2><div class="lst" id="kList"></div></div><div class="foot"><button class="btn g" onclick="show('H')">← वापस</button><button class="btn" onclick="show('H')">🏠 मुख्य पृष्ठ</button></div></div>
+ <div id="vD" class="hide"><div class="box"><h2 id="dyH">नया नोट</h2>
+   <label>शीर्षक</label><input id="dyT"><label>नोट</label><textarea id="dyB"></textarea>
+   <label>याद दिलाने का समय (वैकल्पिक)</label><input id="dyR" type="datetime-local">
+   <label>फ़ोटो (वैकल्पिक, 6 तक)</label><input id="dyF" type="file" accept="image/*" multiple onchange="dyPick(this)"><div id="dyPv"></div>
+   <button class="btn" id="dyBtn" onclick="dySave()">सहेजें</button><button class="btn g hide" id="dyX" onclick="dyRst()">रद्द करें</button><div class="msg" id="dyMsg"></div></div>
+  <div class="box"><h2>मेरी डायरी <span class="pill" id="dyCnt"></span></h2><input id="dyQ" placeholder="शब्द से खोजें" oninput="dyList()"><div class="lst" id="dyList" style="margin-top:8px"></div></div><div class="foot"><button class="btn g" onclick="show('H')">← वापस</button><button class="btn" onclick="show('H')">🏠 मुख्य पृष्ठ</button></div></div>
+ <div id="vM" class="hide"><div class="box"><h2>मासिक पाठ योजना</h2><p class="sub">एडमिन की तैयार की हुई योजना। यहाँ देखिए और पढ़िए।</p>
+   <div class="row"><select id="pmM" onchange="listMP()"></select><select id="pmC" onchange="listMP()"></select></div>
+   <select id="pmS" onchange="listMP()" style="margin-top:8px"></select><div class="lst" id="pmList" style="margin-top:8px"></div><div class="msg" id="pmMsg"></div></div><div class="foot"><button class="btn g" onclick="show('H')">← वापस</button><button class="btn" onclick="show('H')">🏠 मुख्य पृष्ठ</button></div></div>
+ <div id="vZ" class="hide"><div class="box"><h2>क्विज़</h2><p class="sub">एडमिन के बनाए क्विज़। लिंक बच्चों को WhatsApp पर भेजिए। बच्चों के नतीजे कहीं सहेजे नहीं जाते।</p>
+   <div class="row"><select id="zqC" onchange="listZ()"></select><select id="zqS" onchange="listZ()"></select></div>
+   <div class="lst" id="zList" style="margin-top:8px"></div><div class="msg" id="zMsg"></div></div><div class="foot"><button class="btn g" onclick="show('H')">← वापस</button><button class="btn" onclick="show('H')">🏠 मुख्य पृष्ठ</button></div></div>
+ <div id="vQ" class="hide">
+  <div id="qL"><div class="box"><h2>प्रश्न पत्र</h2><p class="sub">एडमिन के तैयार किए प्रश्न पत्र। चुनिए, अपना विवरण जाँचिए, और A4 में प्रिंट कीजिए या WhatsApp पर भेजिए।</p>
+   <div class="row"><select id="tqE" onchange="listQ()"><option value="">सभी प्रकार</option><option>दैनिक अभ्यास</option><option>मासिक</option><option>त्रैमासिक</option><option>वार्षिक</option></select><select id="tqC" onchange="listQ()"></select></div>
+   <div class="row" style="margin-top:8px"><select id="tqS" onchange="listQ()"></select><input id="tqQ" placeholder="शीर्षक खोजें" oninput="listQ()"></div>
+   <div class="lst" id="tqList" style="margin-top:8px"></div><div class="msg" id="tqMsg"></div></div><div class="foot"><button class="btn g" onclick="show('H')">← वापस</button><button class="btn" onclick="show('H')">🏠 मुख्य पृष्ठ</button></div></div>
+  <div id="qMk" class="hide"><div class="box"><h2>अपना विवरण जाँचिए</h2>
+   <div class="row"><div><label>विद्यालय</label><input id="mS" oninput="drawP()"></div><div><label>शिक्षक</label><input id="mT" oninput="drawP()"></div></div>
+   <label>दिनांक</label><input id="mD" type="date" onchange="drawP()">
+   <button class="btn" onclick="doPrint()">🖨 A4 में प्रिंट</button><button class="btn" onclick="sharePdf()">📄 PDF शेयर करें</button><button class="btn" onclick="shareDocx()">📝 Word (docx) शेयर करें</button><button class="btn g" onclick="waShare()">WhatsApp (टेक्स्ट)</button><button class="btn g" onclick="cmt('प्रश्न पत्र',curQ.title)">✉️ गलती बताएँ</button><button class="btn g" onclick="backQ()">← वापस</button><div class="msg" id="mMsg"></div></div>
+   <div class="box"><div class="scrollx"><div class="sheet" id="pvSheet"></div></div></div></div>
+ </div>
+ <div id="vS" class="hide"><iframe id="scf" allow="camera; web-share" style="width:100%;height:calc(100vh - 90px);border:0;border-radius:12px;background:var(--card)"></iframe><div class="foot"><button class="btn g" onclick="show('H')">← वापस</button><button class="btn" onclick="show('H')">🏠 मुख्य पृष्ठ</button></div></div>
+ <div id="vC" class="hide">
+  <div class="box">
+   <div class="row"><div><label>विद्यालय</label><input id="pS" oninput="camP()"></div><div><label>शिक्षक का नाम</label><input id="pT" oninput="camP()"></div></div>
+   <p class="sub" style="margin:6px 0 0">लॉगिन की जानकारी अपने आप भरी है। ज़रूरत हो तो बदल लीजिए, फ़ोटो पर यही छपेगा।</p>
+   <video id="vid" class="hide" autoplay playsinline muted style="width:100%;border-radius:10px;background:#000;margin-top:8px"></video>
+   <div class="msg" id="gps" style="color:var(--mute)">लोकेशन अभी चालू नहीं है।</div>
+   <button class="btn" id="bOpen" onclick="startCam()">कैमरा खोलें</button><button class="btn" id="bSnap" onclick="snap()" disabled>📷 फ़ोटो खींचें</button><button class="btn g" onclick="flip()">🔄 कैमरा बदलें</button><button class="btn g" onclick="watchGps()">📍 लोकेशन लें</button>
+   <label>या फ़ोन के कैमरा ऐप से खींचें</label><input type="file" accept="image/*" capture="environment" onchange="fromFile(this)">
+   <div class="msg" id="cm" style="color:var(--mute)"></div>
+  </div>
+  <div class="box hide" id="res"><canvas id="shot" style="width:100%;border-radius:10px;background:#000"></canvas>
+   <button class="btn" onclick="saveImg()">फ़ोटो सहेजें</button><button class="btn g" onclick="shareImg()">शेयर करें</button></div>
+  <p class="sub">फ़ोटो सिर्फ़ आपके फ़ोन में रहती है। पोर्टल में सिर्फ़ यह गिनती जाती है कि कुल कितनी फ़ोटो खींची गईं, कोई फ़ोटो, जगह या नाम नहीं।</p><div class="foot"><button class="btn g" onclick="show('H')">← वापस</button><button class="btn" onclick="show('H')">🏠 मुख्य पृष्ठ</button></div>
+ </div>
+ </section>
+</main>
+<div id="pap"><div class="sheet" id="papSheet"></div></div>
+<script>
+var SB="https://jsxqioaendqjdqdnqysc.supabase.co",KEY="sb_publishable_j2Sm4mC4iTf8_5JO6nQz7g_5p50EcVt";
+var DOM="@shikshak-sathi.example.com";
+/* ====== यहाँ अपनी जानकारी भरिए (खाली छोड़ने पर वह सुविधा बंद रहती है) ====== */
+var WORKER="https://shikshak-saathi-api.sushilsirbajitpur.workers.dev";
+function ik(u){return/\/file\?key=/.test(u)&&S?u+"&t="+encodeURIComponent(S.access_token):u}            /* Cloudflare Worker का पता, जैसे https://shikshak-upload.आपका-नाम.workers.dev (डायरी की फ़ोटो के लिए) */
+var LINKS={yt:"",reels:"",wa:""}; /* YouTube चैनल, रील्स, WhatsApp चैनल के लिंक */
+/* ====================================================================== */
+var $=function(i){return document.getElementById(i)};
+var SUBS=["हिंदी","गणित","अंग्रेज़ी","पर्यावरण","विज्ञान","संस्कृत","उर्दू"];
+var S=null,me=null,editId=0,LOC=[],freeLoc=true;
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function today(){return new Date().toLocaleDateString("en-CA",{timeZone:"Asia/Kolkata"})}
+function fmt(d){return String(d).split("-").reverse().join("/")}
+function opts(a,ph){return(ph?"<option value=''>"+ph+"</option>":"")+a.map(function(x){return"<option>"+esc(x)+"</option>"}).join("")}
+function keep(){try{localStorage.setItem("ss",JSON.stringify(S))}catch(e){}}
+function gone(){try{localStorage.removeItem("ss")}catch(e){}}
+
+async function api(path,o){
+ o=o||{};var h={apikey:KEY,"Content-Type":"application/json"};
+ if(o.auth!==false&&S){await fresh();h.Authorization="Bearer "+S.access_token}
+ if(o.headers)for(var k in o.headers)h[k]=o.headers[k];
+ var r=await fetch(SB+path,{method:o.method||"GET",headers:h,body:o.body?JSON.stringify(o.body):undefined}),t=await r.text(),j=null;
+ try{j=t?JSON.parse(t):null}catch(e){}
+ if(!r.ok){throw new Error((j&&(j.msg||j.message||j.error_description||j.error))||("त्रुटि "+r.status))}
+ return j;
+}
+function setSess(j){S={access_token:j.access_token,refresh_token:j.refresh_token,expires_at:j.expires_at||(Math.floor(Date.now()/1000)+(j.expires_in||3600)),uid:j.user.id};keep()}
+async function fresh(){
+ if(S&&S.expires_at-60<Date.now()/1000){var j=await api("/auth/v1/token?grant_type=refresh_token",{method:"POST",auth:false,body:{refresh_token:S.refresh_token}});setSess(j)}
+}
+function nice(m){
+ if(/already registered|already been registered/i.test(m))return"यह मोबाइल नंबर पहले से पंजीकृत है। लॉगिन कीजिए।";
+ if(/invalid login/i.test(m))return"मोबाइल नंबर या पासवर्ड गलत है।";
+ if(/Failed to fetch|NetworkError/i.test(m))return"इंटरनेट नहीं चल रहा। जाँचकर फिर कोशिश कीजिए।";
+ if(/rate limit/i.test(m))return"बहुत बार कोशिश हुई। थोड़ी देर बाद फिर कीजिए।";
+ return m;
+}
+function ev(n){if(S)api("/rest/v1/events",{method:"POST",body:{event:n}}).catch(function(){})}
+
+function atab(w){$("fL").classList.toggle("hide",w!=="L");$("fR").classList.toggle("hide",w!=="R");$("tL").classList.toggle("on",w==="L");$("tR").classList.toggle("on",w==="R")}
+
+/* जिला-प्रखंड-पंचायत-विद्यालय की सूची मास्टर तालिका से */
+async function loadLoc(){
+ try{LOC=await api("/rest/v1/master_config?select=id,category,item_name,parent_id&is_active=eq.true&order=sort.asc,item_name.asc&limit=1000",{auth:false})}catch(e){LOC=[]}
+ var sb=LOC.filter(function(x){return x.category==="subject"}).map(function(x){return x.item_name});
+ if(sb.length)SUBS=sb;$("dSub").innerHTML=opts(SUBS,"विषय चुनें");$("tqS").innerHTML=opts(SUBS,"सभी विषय");
+ freeLoc=!LOC.some(function(x){return x.category==="district"});
+ $("locSel").classList.toggle("hide",freeLoc);$("locTxt").classList.toggle("hide",!freeLoc);
+ if(!freeLoc)cas(0);
+}
+function kids(cat,pid){return LOC.filter(function(x){return x.category===cat&&(pid==null||x.parent_id===pid)})}
+function fillSel(id,cat,pid,ph){$(id).innerHTML="<option value=''>"+ph+"</option>"+kids(cat,pid).map(function(x){return"<option value='"+x.id+"'>"+esc(x.item_name)+"</option>"}).join("")}
+function cas(l){
+ if(l<=0)fillSel("rD","district",null,"जिला चुनें");
+ if(l<=1)fillSel("rB","block",+$("rD").value||-1,"प्रखंड चुनें");
+ if(l<=2)fillSel("rP","panchayat",+$("rB").value||-1,"पंचायत चुनें");
+ if(l<=3)fillSel("rS","school",+$("rP").value||-1,"विद्यालय चुनें");
+}
+function selText(id){var s=$(id);return s.value?s.options[s.selectedIndex].text:""}
+
+async function reg(){
+ var n=$("rName").value.trim(),m=$("rMob").value.trim(),g=$("rMail").value.trim(),pw=$("rPw").value,M=$("rMsg");
+ var d,b,p,s;
+ if(freeLoc){d=$("xD").value.trim();b=$("xB").value.trim();p=$("xP").value.trim();s=$("xS").value.trim()}
+ else{d=selText("rD");b=selText("rB");p=selText("rP");s=selText("rS")}
+ if(!n||!/^\d{10}$/.test(m)||pw.length<6||!d||!b||!p||!s){M.textContent="सभी जानकारी भरिए। मोबाइल 10 अंक का हो और पासवर्ड कम से कम 6 अक्षर का।";return}
+ if(freeLoc&&!/^\d{11}$/.test(p)){M.className="msg";M.textContent="UDISE कोड 11 अंकों का होना चाहिए।";return}
+ $("bR").disabled=true;M.className="msg";M.textContent="पंजीकरण हो रहा है...";
+ try{
+  var j=await api("/auth/v1/signup",{method:"POST",auth:false,body:{email:m+DOM,password:pw,data:{mobile:m,full_name:n,email:g,district:d,block:b,panchayat:p,school:s}}});
+  if(j&&j.access_token){setSess(j);await enter()}
+  else{M.textContent="खाता बन गया, पर सीधा लॉगिन नहीं हुआ। लॉगिन टैब से लॉगिन कीजिए।";atab("L")}
+ }catch(e){M.textContent=nice(e.message)}
+ $("bR").disabled=false;
+}
+async function login(){
+ var m=$("lMob").value.trim(),pw=$("lPw").value,M=$("lMsg");
+ if(!/^\d{10}$/.test(m)||!pw){M.textContent="मोबाइल नंबर (10 अंक) और पासवर्ड भरिए।";return}
+ $("bL").disabled=true;M.textContent="";
+ try{var j=await api("/auth/v1/token?grant_type=password",{method:"POST",auth:false,body:{email:m+DOM,password:pw}});setSess(j);await enter()}
+ catch(e){M.textContent=nice(e.message)}
+ $("bL").disabled=false;
+}
+function logout(){S=null;me=null;gone();$("app").classList.add("hide");$("auth").classList.remove("hide");$("lPw").value=""}
+async function enter(){
+ var p=await api("/rest/v1/profiles?select=*&id=eq."+S.uid);me=p&&p[0];
+ if(!me){logout();$("lMsg").textContent="आपकी प्रोफ़ाइल नहीं मिली। फिर से पंजीकरण या एडमिन से संपर्क कीजिए।";return}
+ if(me.is_blocked){logout();$("lMsg").textContent="आपका खाता रोका गया है। एडमिन से संपर्क कीजिए।";return}
+ $("auth").classList.add("hide");$("app").classList.remove("hide");
+ $("uName").textContent=me.full_name;$("uSch").textContent=me.school+" | "+me.block+", "+me.district;
+ $("adm").classList.toggle("hide",me.role!=="superadmin");
+ ev("login");await loadCfg();paint();
+}
+function prem(){return!!me&&me.is_premium&&(!me.premium_until||me.premium_until>=today())}
+var CH=[],PL=[],MN=["जनवरी","फ़रवरी","मार्च","अप्रैल","मई","जून","जुलाई","अगस्त","सितंबर","अक्टूबर","नवंबर","दिसंबर"];
+function longD(d){var p=d.split("-");return+p[2]+" "+MN[+p[1]-1]+" "+p[0]}
+var API="https://shikshak-saathi-api.sushilsirbajitpur.workers.dev",CFG=null,CFGT=0,PREMIUM_ON=false; /* PREMIUM_ON=false: अभी सब सुविधाएँ मुफ़्त दिखती हैं। प्रीमियम शुरू करना हो तब true कीजिए */
+var TK={T:"lesson",Q:"paper",N:"news",C:"gps",D:"diary",M:"monthly",Z:"quiz",K:"msg",S:"scan"};
+/* हर टैब की अवस्था एडमिन पोर्टल से आती है: free / premium / hidden। सेटिंग न मिले तो सब मुफ़्त, सिर्फ़ क्विज़ छिपा। */
+function mode(t){var k=TK[t],m=CFG&&CFG.tabs&&CFG.tabs[k];if(k==="quiz")return(m==="free"||(m==="premium"&&PREMIUM_ON))?m:"hidden";if(!m)return"free";if(m==="premium"&&!PREMIUM_ON)return"free";return m}
+async function loadCfg(){if(CFGT&&Date.now()-CFGT<60000)return;try{await fresh();var c=new AbortController(),t=setTimeout(function(){c.abort()},6000),r=await fetch(API+"/config",{headers:{Authorization:"Bearer "+S.access_token},signal:c.signal});clearTimeout(t);if(r.ok){CFG=await r.json();CFGT=Date.now()}}catch(e){}}
+function applyTabs(){Array.prototype.forEach.call(document.querySelectorAll("#hc button"),function(b){var m=mode(b.dataset.t);b.classList.toggle("hide",m==="hidden");b.classList.toggle("lk",isLocked(b.dataset.t))})}
+var SCAN_HTML="<!DOCTYPE html>\n<html lang=\"hi\"><head><meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">\n<title>स्कैनर → PDF<\/title>\n<style>\n:root{--bg:#f6f4ee;--card:#fff;--ink:#14231f;--mute:#5b6b66;--line:#e2ded2;--pri:#1f5a3d;--warn:#b42318}\n@media(prefers-color-scheme:dark){:root{--bg:#101a17;--card:#17251f;--ink:#e8f1ed;--mute:#9db0a9;--line:#2b3d36;--pri:#3cc4a8;--warn:#ff8a7a}}\n*{box-sizing:border-box}\nbody{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 \"Noto Sans Devanagari\",\"Mangal\",system-ui,sans-serif;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}\nmain{max-width:720px;margin:0 auto;padding:14px 16px 40px}\nh1{font-size:21px;margin:0 0 4px}.sub{color:var(--mute);font-size:14px;margin:0 0 12px}\n.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:14px}\n.btn{padding:11px 16px;border:0;border-radius:10px;font:inherit;font-weight:600;color:#fff;background:var(--pri);margin:6px 8px 0 0}\n.btn.g{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.s{padding:6px 10px;font-size:14px;margin:4px 6px 0 0}\n.btn.d{background:transparent;color:var(--warn);border:1px solid var(--warn)}\nselect,input[type=text]{width:100%;padding:10px;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px}\nlabel{display:block;font-size:14px;color:var(--mute);margin:10px 0 3px}\n.it{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}.it:first-child{border-top:0}\n.it img{width:72px;height:96px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:6px}\n#ed{position:fixed;inset:0;z-index:9;background:var(--bg);overflow:auto;padding:env(safe-area-inset-top,0) 12px env(safe-area-inset-bottom,0)}\n#ed.h{display:none}#cv{width:100%;touch-action:none;border-radius:8px;background:#000;display:block}\n.msg{margin-top:8px;font-size:14px;color:var(--warn)}.msg.ok{color:var(--pri)}\n#cm{position:fixed;inset:0;z-index:10;background:#000;display:flex;flex-direction:column;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}#cm.h{display:none}\n.vi{position:relative;flex:1;min-height:0}.vi video{width:100%;height:100%;object-fit:contain;display:block}#ov{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}#cs{color:#fff;text-align:center;padding:8px;font-size:15px}\n<\/style><\/head><body><main>\n<h1>स्कैनर → PDF<\/h1>\n<p class=\"sub\">काग़ज़ की फ़ोटो खींचिए, किनारे ठीक कीजिए, साफ़ PDF बनाइए। फ़ोटो फ़ोन से बाहर नहीं जाती।<\/p>\n<div class=\"box\">\n <input id=\"f1\" type=\"file\" accept=\"image/*\" capture=\"environment\" hidden onchange=\"add(this)\">\n <input id=\"f2\" type=\"file\" accept=\"image/*\" multiple hidden onchange=\"add(this)\">\n <button class=\"btn\" onclick=\"camOpen()\">🎯 ऑटो स्कैन (अपने-आप खींचे)<\/button>\n <button class=\"btn g\" onclick=\"$('f1').click()\">📷 कैमरे से पन्ना खींचें<\/button>\n <button class=\"btn g\" onclick=\"$('f2').click()\">🖼 गैलरी से चुनें<\/button>\n <label>स्कैन का रूप (सब पन्नों पर)<\/label>\n <select id=\"gf\" onchange=\"setF(this.value)\"><option value=\"clean\">साफ़ (रंगीन)<\/option><option value=\"bw\">काला-सफ़ेद (लिखावट के लिए)<\/option><option value=\"gray\">ग्रे<\/option><option value=\"orig\">मूल फ़ोटो<\/option><\/select>\n<\/div>\n<div class=\"box\"><b>पन्ने <span id=\"cnt\">(0)<\/span><\/b><div id=\"L\"><\/div><\/div>\n<div class=\"box\">\n <label>फ़ाइल का नाम<\/label><input id=\"nm\" type=\"text\" placeholder=\"scan\">\n <label>PDF का आकार<\/label>\n <select id=\"q\"><option value=\"1400,0.72\">छोटा (WhatsApp के लिए)<\/option><option value=\"2000,0.82\" selected>सामान्य<\/option><option value=\"2800,0.9\">बढ़िया (प्रिंट के लिए)<\/option><\/select>\n <label>PDF को इतना छोटा करें<\/label>\n <select id=\"tg\"><option value=\"0\">कोई सीमा नहीं<\/option><option value=\"150\">150 KB तक<\/option><option value=\"300\">300 KB तक<\/option><option value=\"500\">500 KB तक<\/option><option value=\"1000\" selected>1 MB तक<\/option><option value=\"2000\">2 MB तक<\/option><\/select>\n <button class=\"btn\" onclick=\"mk()\">📄 PDF बनाएँ और शेयर करें<\/button>\n <div class=\"msg\" id=\"m\"><\/div>\n<\/div>\n<\/main>\n<div id=\"cm\" class=\"h\"><div class=\"vi\"><video id=\"vid\" playsinline muted><\/video><canvas id=\"ov\"><\/canvas><\/div><div id=\"cs\"><\/div><div style=\"text-align:center;padding:0 8px 10px\"><button class=\"btn g\" style=\"color:#fff\" onclick=\"shot(CAM&&CAM.last)\">📸 अभी खींचें<\/button><button class=\"btn\" onclick=\"camClose()\">✓ पूरा हुआ (<span id=\"cn\">0<\/span>)<\/button><\/div><\/div>\n<div id=\"ed\" class=\"h\">\n <h1 style=\"margin-top:12px\">किनारे ठीक कीजिए<\/h1>\n <p class=\"sub\">चारों हरे गोलों को काग़ज़ के कोनों पर खींचकर रखिए।<\/p>\n <canvas id=\"cv\"><\/canvas>\n <button class=\"btn\" onclick=\"eDone()\">✓ हो गया<\/button><button class=\"btn g\" onclick=\"eAuto()\">🎯 अपने-आप<\/button><button class=\"btn g\" onclick=\"eFull()\">पूरा पन्ना<\/button><button class=\"btn g\" onclick=\"eRot()\">↻ घुमाएँ<\/button><button class=\"btn g\" onclick=\"eCancel()\">रद्द<\/button>\n<\/div>\n<script>\nvar $=function(i){return document.getElementById(i)},P=[],gf=\"clean\",E=null,busy=0,tick=function(){return new Promise(function(r){setTimeout(r,0)})};\nfunction msg(t,ok){var m=$(\"m\");m.textContent=t||\"\";m.className=\"msg\"+(ok?\" ok\":\"\")}\nfunction load(f){return createImageBitmap(f,{imageOrientation:\"from-image\"}).then(function(b){var k=Math.min(1,2600/Math.max(b.width,b.height)),c=document.createElement(\"canvas\");c.width=Math.round(b.width*k);c.height=Math.round(b.height*k);c.getContext(\"2d\").drawImage(b,0,0,c.width,c.height);return c})}\nasync function add(inp){var fs=[].slice.call(inp.files);inp.value=\"\";\n for(var i=0;i<fs.length;i++){try{var c=await load(fs[i]);P.push({src:c,c:detect(c,c.width,c.height)||[[.04,.04],[.96,.04],[.96,.96],[.04,.96]],rot:0})}catch(e){msg(\"एक फ़ोटो खुल नहीं सकी।\")}}\n render()}\nfunction dist(a,b){return Math.hypot(a[0]-b[0],a[1]-b[1])}\nfunction rot(c,n){n%=4;if(!n)return c;var o=document.createElement(\"canvas\"),s=n%2;o.width=s?c.height:c.width;o.height=s?c.width:c.height;var x=o.getContext(\"2d\");x.translate(o.width/2,o.height/2);x.rotate(n*Math.PI/2);x.drawImage(c,-c.width/2,-c.height/2);return o}\nfunction proc(p,max){\n var s=p.src,W=s.width,H=s.height,q=p.c.map(function(a){return[a[0]*W,a[1]*H]}),\n w=Math.max(dist(q[0],q[1]),dist(q[3],q[2])),h=Math.max(dist(q[0],q[3]),dist(q[1],q[2])),k=Math.min(1,max/Math.max(w,h));\n w=Math.max(8,Math.round(w*k));h=Math.max(8,Math.round(h*k));\n var x0=q[0][0],y0=q[0][1],x1=q[1][0],y1=q[1][1],x2=q[2][0],y2=q[2][1],x3=q[3][0],y3=q[3][1],\n dx1=x1-x2,dx2=x3-x2,dx3=x0-x1+x2-x3,dy1=y1-y2,dy2=y3-y2,dy3=y0-y1+y2-y3,\n D=dx1*dy2-dy1*dx2||1e-9,g=(dx3*dy2-dy3*dx2)/D,t=(dx1*dy3-dy1*dx3)/D,\n a=x1-x0+g*x1,b=x3-x0+t*x3,d=y1-y0+g*y1,e=y3-y0+t*y3,\n sd=s.getContext(\"2d\").getImageData(0,0,W,H).data,o=document.createElement(\"canvas\");\n o.width=w;o.height=h;var ox=o.getContext(\"2d\"),od=ox.createImageData(w,h),r=od.data;\n for(var y=0;y<h;y++)for(var x=0;x<w;x++){\n  var u=(x+.5)/w,v=(y+.5)/h,z=g*u+t*v+1,sx=(a*u+b*v+x0)/z-.5,sy=(d*u+e*v+y0)/z-.5;\n  sx=Math.min(W-1.001,Math.max(0,sx));sy=Math.min(H-1.001,Math.max(0,sy));\n  var ix=sx|0,iy=sy|0,fx=sx-ix,fy=sy-iy,i=(iy*W+ix)*4,j=i+4*W,m=(y*w+x)*4;\n  for(var n=0;n<3;n++)r[m+n]=(sd[i+n]*(1-fx)+sd[i+4+n]*fx)*(1-fy)+(sd[j+n]*(1-fx)+sd[j+4+n]*fx)*fy;\n  r[m+3]=255}\n ox.putImageData(od,0,0);o=rot(o,p.rot);\n return gf===\"orig\"?o:filt(o,gf)}\nfunction filt(o,f){\n var x=o.getContext(\"2d\"),w=o.width,h=o.height,im=x.getImageData(0,0,w,h),d=im.data,n=w*h,i,L=function(i){return .299*d[i]+.587*d[i+1]+.114*d[i+2]};\n if(f===\"bw\"){\n  var gr=new Float32Array(n),I=new Float64Array((w+1)*(h+1)),r=Math.max(7,Math.round(w/32)),W1=w+1;\n  for(i=0;i<n;i++)gr[i]=L(i*4);\n  for(var y=0;y<h;y++){var rs=0;for(var xx=0;xx<w;xx++){rs+=gr[y*w+xx];I[(y+1)*W1+xx+1]=I[y*W1+xx+1]+rs}}\n  for(y=0;y<h;y++)for(xx=0;xx<w;xx++){\n   var a=Math.max(0,xx-r),b=Math.min(w,xx+r+1),c=Math.max(0,y-r),e=Math.min(h,y+r+1),\n   mean=(I[e*W1+b]-I[c*W1+b]-I[e*W1+a]+I[c*W1+a])/((b-a)*(e-c)),\n   v=gr[y*w+xx]<mean*.9?0:255,p=(y*w+xx)*4;d[p]=d[p+1]=d[p+2]=v}\n }else{\n  var H=new Uint32Array(256),cnt=0;\n  for(i=0;i<n;i+=3){H[L(i*4)|0]++;cnt++}\n  var pc=function(q){var s=0,k=0;for(;k<255;k++){s+=H[k];if(s>=cnt*q)break}return k},lo=pc(.02),hi=Math.max(lo+30,pc(.7)),sc=255/(hi-lo);\n  for(i=0;i<n;i++){var p=i*4,R=d[p],G=d[p+1],B=d[p+2];\n   if(f===\"gray\"){R=G=B=.299*R+.587*G+.114*B}\n   d[p]=(R-lo)*sc;d[p+1]=(G-lo)*sc;d[p+2]=(B-lo)*sc}\n }\n x.putImageData(im,0,0);return o}\n/* किनारे अपने-आप पहचानना: सबसे बड़ा चमकीला हिस्सा (काग़ज़) ढूँढकर उसके चार कोने */\nfunction detect(el,sw,sh){\n var W=96,H=Math.max(8,Math.round(W*sh/sw)),N=W*H,c=detect.c||(detect.c=document.createElement(\"canvas\"));\n c.width=W;c.height=H;var x=c.getContext(\"2d\",{willReadFrequently:true});x.drawImage(el,0,0,W,H);\n var d=x.getImageData(0,0,W,H).data,g=new Uint8Array(N),hs=new Uint32Array(256),i,k,sum=0,sb=0,wb=0,mx=0,th=128;\n for(i=0;i<N;i++){g[i]=.299*d[i*4]+.587*d[i*4+1]+.114*d[i*4+2];hs[g[i]]++;sum+=g[i]}\n for(k=0;k<256;k++){wb+=hs[k];if(!wb)continue;var wf=N-wb;if(!wf)break;sb+=k*hs[k];var mb=sb/wb,mf=(sum-sb)/wf,bt=wb*wf*(mb-mf)*(mb-mf);if(bt>mx){mx=bt;th=k}}\n var seen=new Uint8Array(N),stk=new Int32Array(N),best=null,bs=0;\n for(i=0;i<N;i++){if(seen[i]||g[i]<=th)continue;\n  var sp=0,cnt=0,v=[1e9,-1e9,-1e9,1e9],q=[[0,0],[0,0],[0,0],[0,0]];stk[sp++]=i;seen[i]=1;\n  while(sp){var p=stk[--sp],px=p%W,py=(p/W)|0,s1=px+py,s2=px-py;cnt++;\n   if(s1<v[0]){v[0]=s1;q[0]=[px,py]}if(s1>v[1]){v[1]=s1;q[1]=[px,py]}if(s2>v[2]){v[2]=s2;q[2]=[px,py]}if(s2<v[3]){v[3]=s2;q[3]=[px,py]}\n   if(px>0&&!seen[p-1]&&g[p-1]>th){seen[p-1]=1;stk[sp++]=p-1}\n   if(px<W-1&&!seen[p+1]&&g[p+1]>th){seen[p+1]=1;stk[sp++]=p+1}\n   if(py>0&&!seen[p-W]&&g[p-W]>th){seen[p-W]=1;stk[sp++]=p-W}\n   if(py<H-1&&!seen[p+W]&&g[p+W]>th){seen[p+W]=1;stk[sp++]=p+W}}\n  if(cnt>bs){bs=cnt;best=q}}\n if(!best||bs<N*.12||bs>N*.95)return null;\n var Q=[best[0],best[2],best[1],best[3]],ar=0;\n for(i=0;i<4;i++){var A=Q[i],B=Q[(i+1)%4];ar+=A[0]*B[1]-B[0]*A[1]}\n ar=Math.abs(ar)/2;if(!ar||bs/ar<.7||bs/ar>1.2)return null;\n return Q.map(function(a){return[(a[0]+.5)/W,(a[1]+.5)/H]})}\nfunction eAuto(){var s=P[E.i].src,r=detect(s,s.width,s.height);if(r){E.c=r;eDraw()}else alert(\"किनारे पहचान में नहीं आए। हाथ से ठीक कीजिए।\")}\n/* ऑटो स्कैन: पन्ना मिलने के बाद लगभग 1 सेकंड स्थिर रहे तो अपने-आप खींचता है */\nvar CAM=null;\nasync function camOpen(){\n var st;try{st=await navigator.mediaDevices.getUserMedia({video:{facingMode:\"environment\",width:{ideal:1920}},audio:false})}catch(e){msg(\"कैमरा नहीं खुला। 'कैमरे से पन्ना खींचें' इस्तेमाल कीजिए।\");return}\n var v=$(\"vid\");v.srcObject=st;try{await v.play()}catch(e){}\n $(\"cm\").classList.remove(\"h\");$(\"cn\").textContent=P.length;CAM={st:st,last:null,t:0,lock:0,run:1};loop()}\nfunction camClose(){if(CAM){CAM.run=0;CAM.st.getTracks().forEach(function(t){t.stop()});CAM=null}$(\"cm\").classList.add(\"h\");render()}\nasync function shot(r){var v=$(\"vid\");if(!v.videoWidth)return;var k=Math.min(1,2600/Math.max(v.videoWidth,v.videoHeight)),c=document.createElement(\"canvas\");c.width=Math.round(v.videoWidth*k);c.height=Math.round(v.videoHeight*k);c.getContext(\"2d\").drawImage(v,0,0,c.width,c.height);P.push({src:c,c:r||[[.04,.04],[.96,.04],[.96,.96],[.04,.96]],rot:0});if(navigator.vibrate)navigator.vibrate(60);$(\"cn\").textContent=P.length}\nasync function loop(){\n var C=CAM;if(!C||!C.run)return;\n var v=$(\"vid\"),ov=$(\"ov\"),cw=ov.clientWidth,ch=ov.clientHeight;\n if(v.videoWidth&&cw){\n  if(ov.width!==cw||ov.height!==ch){ov.width=cw;ov.height=ch}\n  var r=detect(v,v.videoWidth,v.videoHeight),x=ov.getContext(\"2d\"),vw=v.videoWidth,vh=v.videoHeight,s=Math.min(cw/vw,ch/vh),ox=(cw-vw*s)/2,oy=(ch-vh*s)/2;\n  x.clearRect(0,0,cw,ch);\n  if(r){x.beginPath();r.forEach(function(a,k){x[k?\"lineTo\":\"moveTo\"](ox+a[0]*vw*s,oy+a[1]*vh*s)});x.closePath();x.fillStyle=\"rgba(60,196,168,.2)\";x.fill();x.lineWidth=4;x.strokeStyle=\"#3cc4a8\";x.stroke()}\n  var mv=r&&C.last?Math.max.apply(0,r.map(function(a,k){return Math.hypot(a[0]-C.last[k][0],a[1]-C.last[k][1])})):9,now=Date.now();\n  if(C.lock){if(!r||mv>.08)C.lock=0}\n  else if(r&&mv<.025){if(!C.t)C.t=now;if(now-C.t>1200){await shot(r);C.lock=1;C.t=0}}\n  else C.t=0;\n  C.last=r;$(\"cs\").textContent=C.lock?\"✓ जुड़ गया। अगला पन्ना रखिए।\":r?(C.t?\"स्थिर रखिए...\":\"पन्ना मिल गया\"):\"पन्ना कैमरे के सामने रखिए (गहरी सतह पर बेहतर)\"}\n if(CAM===C&&C.run)setTimeout(loop,150)}\nasync function render(){\n if(busy){busy=2;return}busy=1;\n for(var i=0;i<P.length;i++){if(!P[i].th){P[i].th=proc(P[i],260).toDataURL(\"image/jpeg\",.6);await tick()}}\n $(\"cnt\").textContent=\"(\"+P.length+\")\";\n $(\"L\").innerHTML=P.length?P.map(function(p,i){return'<div class=\"it\"><img src=\"'+p.th+'\"><div><b>पन्ना '+(i+1)+'<\/b><br><button class=\"btn s g\" onclick=\"edit('+i+')\">✂ सुधारें<\/button><button class=\"btn s g\" onclick=\"rt('+i+')\">↻<\/button><button class=\"btn s g\" onclick=\"mv('+i+',-1)\">↑<\/button><button class=\"btn s g\" onclick=\"mv('+i+',1)\">↓<\/button><button class=\"btn s d\" onclick=\"del('+i+')\">🗑<\/button><\/div><\/div>'}).join(\"\"):'<p class=\"sub\">ऊपर से पन्ना जोड़िए।<\/p>';\n if(busy===2){busy=0;return render()}busy=0}\nfunction setF(v){gf=v;P.forEach(function(p){p.th=null});render()}\nfunction rt(i){P[i].rot=(P[i].rot+1)%4;P[i].th=null;render()}\nfunction mv(i,k){var j=i+k;if(j<0||j>=P.length)return;var t=P[i];P[i]=P[j];P[j]=t;render()}\nfunction del(i){if(confirm(\"यह पन्ना हटाएँ?\")){P.splice(i,1);render()}}\n/* किनारे ठीक करना */\nfunction edit(i){E={i:i,c:P[i].c.map(function(a){return a.slice()}),d:-1};var s=P[i].src,cv=$(\"cv\");cv.width=Math.min(innerWidth-24,700);cv.height=Math.round(cv.width*s.height/s.width);$(\"ed\").classList.remove(\"h\");eDraw()}\nfunction eDraw(){\n var cv=$(\"cv\"),x=cv.getContext(\"2d\"),w=cv.width,h=cv.height,c=E.c;\n x.drawImage(P[E.i].src,0,0,w,h);x.beginPath();c.forEach(function(a,k){x[k?\"lineTo\":\"moveTo\"](a[0]*w,a[1]*h)});x.closePath();\n x.fillStyle=\"rgba(60,196,168,.15)\";x.fill();x.lineWidth=3;x.strokeStyle=\"#3cc4a8\";x.stroke();\n c.forEach(function(a){x.beginPath();x.arc(a[0]*w,a[1]*h,16,0,7);x.fillStyle=\"rgba(60,196,168,.6)\";x.fill();x.stroke()})}\nfunction ePos(ev){var r=$(\"cv\").getBoundingClientRect();return[(ev.clientX-r.left)/r.width,(ev.clientY-r.top)/r.height]}\nvar cvEl=$(\"cv\");\ncvEl.addEventListener(\"pointerdown\",function(ev){var p=ePos(ev),b=1e9;E.d=-1;E.c.forEach(function(a,k){var q=Math.hypot((a[0]-p[0])*cvEl.width,(a[1]-p[1])*cvEl.height);if(q<b&&q<60){b=q;E.d=k}});if(E.d>=0)cvEl.setPointerCapture(ev.pointerId)});\ncvEl.addEventListener(\"pointermove\",function(ev){if(!E||E.d<0)return;var p=ePos(ev);E.c[E.d]=[Math.min(1,Math.max(0,p[0])),Math.min(1,Math.max(0,p[1]))];eDraw()});\ncvEl.addEventListener(\"pointerup\",function(){if(E)E.d=-1});\nfunction eDone(){P[E.i].c=E.c;P[E.i].th=null;eCancel();render()}\nfunction eFull(){E.c=[[0,0],[1,0],[1,1],[0,1]];eDraw()}\nfunction eRot(){P[E.i].rot=(P[E.i].rot+1)%4;P[E.i].th=null}\nfunction eCancel(){$(\"ed\").classList.add(\"h\");E=null}\n/* PDF: सीधे JPEG पन्नों से, कोई बाहरी लाइब्रेरी नहीं */\nfunction mkPdf(J){\n var enc=new TextEncoder(),parts=[],off=[],len=0,N=J.length;\n function add(x){var u=typeof x===\"string\"?enc.encode(x):x;parts.push(u);len+=u.length}\n function obj(n,fn){off[n]=len;add(n+\" 0 obj\\n\");fn();add(\"\\nendobj\\n\")}\n add(\"%PDF-1.4\\n\");\n obj(1,function(){add(\"<<\/Type/Catalog/Pages 2 0 R>>\")});\n obj(2,function(){add(\"<<\/Type/Pages/Count \"+N+\"/Kids[\"+J.map(function(_,i){return(3+i*3)+\" 0 R\"}).join(\" \")+\"]>>\")});\n J.forEach(function(j,i){var p=3+i*3,k=Math.min(595/j.w,842/j.h),w=j.w*k,h=j.h*k,x=(595-w)/2,y=(842-h)/2,\n  c=\"q \"+w.toFixed(2)+\" 0 0 \"+h.toFixed(2)+\" \"+x.toFixed(2)+\" \"+y.toFixed(2)+\" cm /Im0 Do Q\";\n  obj(p,function(){add(\"<<\/Type/Page/Parent 2 0 R/MediaBox[0 0 595 842]/Resources<<\/XObject<<\/Im0 \"+(p+2)+\" 0 R>>>>/Contents \"+(p+1)+\" 0 R>>\")});\n  obj(p+1,function(){add(\"<<\/Length \"+c.length+\">>stream\\n\"+c+\"\\nendstream\")});\n  obj(p+2,function(){add(\"<<\/Type/XObject/Subtype/Image/Width \"+j.w+\"/Height \"+j.h+\"/ColorSpace/DeviceRGB/BitsPerComponent 8/Filter/DCTDecode/Length \"+j.b.length+\">>stream\\n\");add(j.b);add(\"\\nendstream\")})});\n var xr=len,T=3*N+3;add(\"xref\\n0 \"+T+\"\\n0000000000 65535 f \\n\");\n for(var n=1;n<T;n++)add(String(off[n]).padStart(10,\"0\")+\" 00000 n \\n\");\n add(\"trailer\\n<<\/Size \"+T+\"/Root 1 0 R>>\\nstartxref\\n\"+xr+\"\\n%%EOF\");\n return new Blob(parts,{type:\"application/pdf\"})}\nasync function enc(C,ql){var J=[],t=0;for(var i=0;i<C.length;i++){var b=await new Promise(function(r){C[i].toBlob(r,\"image/jpeg\",ql)}),u=new Uint8Array(await b.arrayBuffer());t+=u.length;J.push({b:u,w:C[i].width,h:C[i].height})}return{J:J,t:t}}\nfunction shr(c){if(c.width<500)return c;var o=document.createElement(\"canvas\");o.width=Math.round(c.width*.85);o.height=Math.round(c.height*.85);o.getContext(\"2d\").drawImage(c,0,0,o.width,o.height);return o}\nasync function mk(){\n if(!P.length){msg(\"पहले पन्ने जोड़िए।\");return}\n var q=$(\"q\").value.split(\",\"),max=+q[0],ql=+q[1],C=[],R;msg(\"\");\n try{\n  for(var i=0;i<P.length;i++){msg(\"पन्ना \"+(i+1)+\"/\"+P.length+\" बन रहा है...\");await tick();\n   C.push(proc(P[i],max))}\n  R=await enc(C,ql);var tg=+$(\"tg\").value*1024;\n  for(var k=0;k<10&&tg&&R.t>tg;k++){msg(\"PDF छोटी कर रहे हैं...\");await tick();if(ql>.5)ql=Math.max(.5,ql-.12);else C=C.map(shr);R=await enc(C,ql)}\n }catch(e){msg(\"PDF नहीं बन सकी। 'छोटा' आकार चुनकर फिर कोशिश कीजिए।\");return}\n msg(\"PDF तैयार: \"+Math.round(R.t/1024)+\" KB\"+(tg&&R.t>tg?\" (सीमा से बड़ी है, पन्ने कम कीजिए)\":\"\"),1);\n var pdf=mkPdf(R.J),nm=($(\"nm\").value.trim()||\"scan\").replace(/[\\\\\\/:*?\"<>|]/g,\"_\")+\".pdf\",f=new File([pdf],nm,{type:\"application/pdf\"});\n try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f]});msg(\"शेयर हो गया ✓\",1);return}}catch(e){if(e&&e.name===\"AbortError\"){msg(\"\");return}}\n var a=document.createElement(\"a\");a.href=URL.createObjectURL(pdf);a.download=nm;document.body.appendChild(a);a.click();a.remove();\n msg(\"PDF डाउनलोड हो गई (\"+Math.round(pdf.size/1024)+\" KB)। फ़ाइल्स में देखिए।\",1)}\nrender();\n<\/script><\/body><\/html>\n";
+var KL=[];
+var STORE="web",AD_ON=false; /* "web" = वेबसाइट; "indus" या "play" = स्टोर वाला ऐप (सब टैब मुफ़्त, भुगतान की बात नहीं); AD_ON=true तब करें जब AdMob जुड़ जाए */
+var FREE_TABS=STORE==="web"?["T","N","K","S"]:["T","Q","N","C","D","M","Z","K","S"];
+if(STORE!=="web"&&AD_ON)document.body.style.paddingBottom="64px"; /* मुफ़्त शिक्षक ये टैब खोल सकता है; बाकी सिर्फ़ प्रीमियम */
+function isLocked(t){return!!me&&me.role==="teacher"&&!prem()&&mode(t)==="premium"}
+function show(w){
+ if(w!=="H"&&mode(w)==="hidden")return;
+ if(w!=="H"&&isLocked(w)){alert("यह सुविधा प्रीमियम में है। प्रीमियम के लिए एडमिन से संपर्क कीजिए।");return}
+ if(w==="S"&&!$("scf").getAttribute("srcdoc"))$("scf").srcdoc=SCAN_HTML;
+ if(w!=="S"&&$("scf").getAttribute("srcdoc")){$("scf").removeAttribute("srcdoc");$("scf").src="about:blank"}
+ ["H","T","Q","C","N","K","D","M","Z","S"].forEach(function(k){$("v"+k).classList.toggle("hide",k!==w)});
+ var UT={T:"lesson",Q:"paper",N:"news",C:"gps",D:"diary",M:"monthly",Z:"quiz",K:"msg"};if(UT[w]&&S)api("/rest/v1/rpc/record_usage",{method:"POST",body:{p_tab:UT[w]}}).catch(function(){});
+ if(w!=="C")stopCam();if(w==="C")loadCamP();if(w==="Q"){backQ();listQ()}if(w==="T")dLoad();if(w==="N")loadN();if(w==="K")listK();if(w==="D")dyRst(),dyList();if(w==="M")loadMP();if(w==="Z")loadZ();if(w==="H"){badges();loadCfg().then(applyTabs)}
+ window.scrollTo(0,0);
+}
+function paint(){
+ var p=prem();$("uChip").textContent=me.role==="superadmin"?"सुपर एडमिन":me.role==="coadmin"?"को-एडमिन":p?"प्रीमियम":"मुफ़्त";
+ $("uChip").className="chip"+(me.role!=="teacher"?" a":p?" p":"");$("lockMsg").classList.toggle("hide",p||STORE!=="web");
+ var o=[],b;for(var i=0;i<(p?30:1);i++){b=new Date(today()+"T12:00:00");b.setDate(b.getDate()-i);o.push(b.toISOString().slice(0,10))}
+ $("dDate").innerHTML=o.map(function(d){return"<option value='"+d+"'>"+longD(d)+"</option>"}).join("");
+ $("hD").textContent=longD(today());$("bDate").textContent=longD(today());$("bSch").textContent=me.school;$("hS").textContent=me.full_name+" · "+me.school;
+ applyTabs();
+ $("hLock").textContent=isLocked("Q")?"🔒 वाले टैब प्रीमियम में हैं। प्रीमियम के लिए एडमिन से संपर्क कीजिए।":"";
+ $("soc").innerHTML=(LINKS.yt?'<a href="'+esc(LINKS.yt)+'" target="_blank" rel="noopener">▶ YouTube: सीखो और मुस्कुराओ</a>':'')+(LINKS.reels?'<a href="'+esc(LINKS.reels)+'" target="_blank" rel="noopener">🎬 रील्स (@shikshaksathi)</a>':'')+(LINKS.wa?'<a href="'+esc(LINKS.wa)+'" target="_blank" rel="noopener">💬 शिक्षक साथी WhatsApp चैनल</a>':'');
+ if(IP)$("inst").classList.remove("hide");
+ show("H");
+}
+/* पाठ-टीका: शिक्षक अपनी घंटियाँ चुनता है; टिप्पणी एडमिन की तैयार की हुई दिखती है। चुनाव इसी फ़ोन में रहता है। */
+function dKey(){return"dp_"+S.uid+"_"+$("dDate").value}
+function dSaved(){try{return JSON.parse(localStorage.getItem(dKey())||"[]")}catch(e){return[]}}
+function dLoad(){CH=dSaved();dRender();dNotes();$("dMsg").textContent=""}
+function dRender(){
+ $("chCnt").textContent=CH.length+" घंटियाँ";
+ $("chList").innerHTML=CH.length?CH.map(function(x,i){return'<div class="dr"><b>'+x.bell+'वीं घंटी · कक्षा '+esc(x.cls)+' · '+esc(x.sub)+'</b><div><button class="btn g s" onclick="dEdit('+i+')">बदलें</button> <button class="btn d s" onclick="dDel('+i+')">हटाएँ</button></div></div>'}).join(""):'<p class="sub">ऊपर से घंटी, कक्षा और विषय चुनकर सूची में जोड़ें।</p>';
+}
+function dAdd(){
+ var b=+$("dBell").value,c=$("dCls").value,sb=$("dSub").value,m=$("dMsg");m.className="msg";
+ if(!b||!c||!sb){m.textContent="घंटी, कक्षा और विषय तीनों चुनिए।";return}
+ CH=CH.filter(function(x){return x.bell!==b});CH.push({bell:b,cls:c,sub:sb});CH.sort(function(x,y){return x.bell-y.bell});
+ $("dBell").value="";dRender();m.textContent="";
+}
+function dEdit(i){var x=CH[i];$("dBell").value=x.bell;$("dCls").value=x.cls;$("dSub").value=x.sub;CH.splice(i,1);dRender();$("dBell").scrollIntoView({behavior:"smooth"})}
+function dDel(i){CH.splice(i,1);dRender()}
+function dSaveAll(){
+ var m=$("dMsg");try{localStorage.setItem(dKey(),JSON.stringify(CH));m.className="msg ok";m.textContent="सब सहेज लिया गया। नीचे हर घंटी की टिप्पणी देखिए।"}catch(e){m.className="msg";m.textContent="फ़ोन में जगह नहीं मिली।"}
+ ev("tika_save");dNotes();$("svList").scrollIntoView({behavior:"smooth"});
+}
+function dDates(){
+ var o=[],pre="dp_"+S.uid+"_";
+ for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf(pre)===0){var d=k.slice(pre.length),v=[];try{v=JSON.parse(localStorage.getItem(k))}catch(e){}if(v.length&&(prem()||d===today()))o.push(d)}}
+ return o.sort().reverse();
+}
+async function dNotes(){
+ var ds=dDates(),n=0;
+ if(!ds.length){$("svCnt").textContent="0 घंटियाँ";$("svList").innerHTML='<p class="sub" style="padding:10px">सब सहेजने के बाद सभी घंटियों की टिप्पणियाँ यहाँ तारीख़ और घंटी के क्रम से दिखेंगी।</p>';return}
+ try{PL=await api("/rest/v1/lesson_plans?select=*&plan_date=in.("+ds.join(",")+")&limit=1000")}
+ catch(e){$("svList").innerHTML='<div class="msg" style="padding:10px">'+esc(nice(e.message))+'</div>';return}
+ $("svList").innerHTML=ds.map(function(d){
+  var sv=[];try{sv=JSON.parse(localStorage.getItem("dp_"+S.uid+"_"+d)||"[]")}catch(e){}n+=sv.length;
+  return'<div class="dh">'+longD(d)+'</div>'+sv.map(function(x){
+   var p=PL.filter(function(q){return q.plan_date===d&&q.class_name==x.cls&&q.subject===x.sub})[0];
+   return'<div class="nt"><span class="badge b1">'+fmt(d)+'</span><span class="badge b2">'+x.bell+'वीं घंटी</span><span class="badge b4">कक्षा '+esc(x.cls)+'</span><span class="badge b3">'+esc(x.sub)+'</span><div><b>प्रस्तावित पाठ की संक्षिप्त टिप्पणी</b></div>'+(p?'<div class="note"><b>'+esc(p.chapter)+'</b><br>'+esc(p.summary)+'</div>':'<div class="note">इस कक्षा और विषय का पाठ-टीका अभी तैयार नहीं है।</div>')+'<button class="btn g s" onclick="cmt(\'पाठ-टीका\',\''+fmt(d)+' कक्षा '+esc(x.cls)+' '+esc(x.sub)+'\')">✉️ गलती बताएँ</button></div>'}).join("");
+ }).join("");
+ $("svCnt").textContent=n+" घंटियाँ";
+}
+/* GPS नोट कैम */
+var stream=null,facing="environment",pos=null,blob=null,locE="";
+function stopCam(){if(stream){stream.getTracks().forEach(function(t){t.stop()});stream=null}$("vid").classList.add("hide");$("bSnap").disabled=true}
+function cm(t,c){var m=$("cm");m.textContent=t;m.className="msg "+(c||"");m.style.color=c?"":"var(--mute)"}
+function camP(){try{localStorage.setItem("cp_"+S.uid,JSON.stringify({s:$("pS").value,t:$("pT").value}))}catch(e){}}
+function loadCamP(){var p={};try{p=JSON.parse(localStorage.getItem("cp_"+S.uid)||"{}")}catch(e){}$("pS").value=p.s||me.school||"";$("pT").value=p.t||me.full_name||""}
+function locErr(e){return e&&e.code===1?"लोकेशन की अनुमति नहीं मिली। Chrome में पते के पास 🔒 दबाकर साइट की अनुमति में लोकेशन चालू कीजिए।":e&&e.code===2?"फ़ोन की लोकेशन (GPS) बंद है या सिग्नल नहीं है। फ़ोन की सेटिंग में लोकेशन चालू कीजिए।":"लोकेशन मिलने में बहुत देर लगी। खुली जगह में जाकर फिर कोशिश कीजिए।"}
+function locOnce(hi,ms){return new Promise(function(ok,no){navigator.geolocation.getCurrentPosition(ok,no,{enableHighAccuracy:hi,timeout:ms,maximumAge:hi?0:60000})})}
+async function getPos(){
+ if(pos&&Date.now()-pos.timestamp<120000)return pos;
+ if(!navigator.geolocation){locE="इस फ़ोन में लोकेशन की सुविधा नहीं है।";return null}
+ try{pos=await locOnce(true,12000);return pos}
+ catch(e1){if(e1.code===1){locE=locErr(e1);return null}try{pos=await locOnce(false,15000);return pos}catch(e2){locE=locErr(e2);return null}}
+}
+function watchGps(){
+ var g=$("gps");g.className="msg";g.style.color="var(--mute)";g.textContent="लोकेशन खोज रहे हैं... (अनुमति माँगे तो अनुमति दें)";
+ getPos().then(function(p){if(p){g.className="msg ok";g.style.color="";g.textContent="लोकेशन मिल गई ✓ (सटीकता ±"+Math.round(p.coords.accuracy)+" मीटर)"}else{g.className="msg";g.style.color="";g.textContent=locE}});
+}
+async function startCam(){
+ try{
+  if(stream)stream.getTracks().forEach(function(t){t.stop()});
+  stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing,width:{ideal:1920}},audio:false});
+  var v=$("vid");v.srcObject=stream;v.classList.remove("hide");try{await v.play()}catch(e){}
+  $("bSnap").disabled=false;$("bOpen").textContent="कैमरा फिर से खोलें";cm("");watchGps();
+ }catch(e){cm("कैमरा नहीं खुला। Chrome में साइट की अनुमति में कैमरा चालू कीजिए, या नीचे फ़ोन के कैमरा ऐप से फ़ोटो चुनिए।","e")}
+}
+function flip(){facing=facing==="environment"?"user":"environment";if(stream)startCam()}
+async function place(lat,lon){
+ try{var c=new AbortController(),t=setTimeout(function(){c.abort()},4000),r=await fetch("https://nominatim.openstreetmap.org/reverse?format=json&accept-language=hi&zoom=16&lat="+lat+"&lon="+lon,{signal:c.signal});clearTimeout(t);var j=await r.json();return j.display_name||""}catch(e){return""}
+}
+function wrap(x,t,w){var o=[],l="";t.split(" ").forEach(function(q){var n=l?l+" "+q:q;if(x.measureText(n).width>w&&l){o.push(l);l=q}else l=n});if(l)o.push(l);return o}
+async function snap(){var v=$("vid");if(!v.videoWidth||v.readyState<2){cm("कैमरा अभी तैयार नहीं है। एक-दो सेकंड रुककर फिर दबाइए।","e");return}await draw(v,v.videoWidth,v.videoHeight)}
+function fromFile(inp){
+ var f=inp.files&&inp.files[0];if(!f)return;cm("फ़ोटो तैयार कर रहे हैं...");
+ var u=URL.createObjectURL(f),im=new Image();
+ im.onload=async function(){await draw(im,im.naturalWidth,im.naturalHeight);URL.revokeObjectURL(u)};
+ im.onerror=function(){cm("यह फ़ोटो खुल नहीं सकी। JPG या PNG फ़ोटो चुनिए।","e")};im.src=u;inp.value="";
+}
+async function draw(src,w,h){
+ cm("लोकेशन ढूँढ रहे हैं (15 सेकंड तक लग सकते हैं)...");
+ var p=await getPos(),noloc=!p;
+ if(noloc&&!confirm(locE+"\n\nबिना लोकेशन के फ़ोटो पर सिर्फ़ तारीख़-समय और नाम छपेंगे। फिर भी बनाएँ?")){cm(locE,"e");return}
+ var lat=noloc?0:p.coords.latitude,lon=noloc?0:p.coords.longitude,nm=noloc?"":await place(lat,lon);
+ try{await document.fonts.load("20px 'Noto Sans Devanagari'")}catch(e){}
+ var sc=Math.min(1,1280/Math.max(w,h)),cw=Math.round(w*sc),ch=Math.round(h*sc),c=$("shot"),x=c.getContext("2d");
+ c.width=cw;c.height=ch;x.drawImage(src,0,0,cw,ch);
+ var fs=Math.max(13,Math.round(cw/47)),d=new Date(),L=[];
+ if(noloc)L.push("📍 लोकेशन उपलब्ध नहीं");
+ else{L.push(nm?"📍 "+nm.slice(0,110):"📍 जगह का नाम नहीं मिला");L.push("अक्षांश: "+lat.toFixed(6)+"   देशांतर: "+lon.toFixed(6)+"   (±"+Math.round(p.coords.accuracy)+" मी)")}
+ L.push("दिनांक/समय: "+d.toLocaleDateString("en-GB")+"  "+d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"}));
+ L.push([$("pS").value,$("pT").value].filter(Boolean).join(" | "));
+ x.font=fs+"px 'Noto Sans Devanagari',sans-serif";
+ var lines=[];L.forEach(function(t){if(t)lines=lines.concat(wrap(x,t,cw-24))});
+ var bh=lines.length*fs*1.35+16;
+ x.fillStyle="#fff";x.textBaseline="top";x.lineJoin="round";x.lineWidth=Math.max(3,Math.round(fs/4));x.strokeStyle="rgba(0,0,0,.85)";
+ lines.forEach(function(t,i){var yy=ch-bh+8+i*fs*1.35;x.strokeText(t,12,yy);x.fillText(t,12,yy)});
+ x.save();x.globalAlpha=.25;x.font="bold "+Math.round(fs*1.6)+"px 'Noto Sans Devanagari',sans-serif";x.textAlign="right";x.fillText("शिक्षक साथी",cw-12,12);x.restore();
+ c.toBlob(function(b){
+  if(!b){cm("फ़ोटो नहीं बन सकी। फिर कोशिश कीजिए।","e");return}
+  blob=b;$("res").classList.remove("hide");cm("फ़ोटो तैयार है ("+Math.round(b.size/1024)+" KB)। नीचे सहेजें या शेयर करें।","ok");
+  api("/rest/v1/rpc/bump_gps",{method:"POST",body:{}}).catch(function(){});$("res").scrollIntoView({behavior:"smooth"})},"image/jpeg",0.8);
+}
+function fname(){return"shikshak-sathi-gps-"+Date.now()+".jpg"}
+function saveImg(){if(!blob)return;var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=fname();document.body.appendChild(a);a.click();a.remove()}
+async function shareImg(){
+ if(!blob)return;var f=new File([blob],fname(),{type:"image/jpeg"});
+ try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],text:"शिक्षक साथी GPS फ़ोटो"});return}}catch(e){return}
+ cm("इस फ़ोन में सीधा शेयर नहीं चला। 'फ़ोटो सहेजें' दबाकर गैलरी से भेजिए।","e");
+}
+/* पासवर्ड बदलना */
+async function delReq(){
+ if(!confirm("आपका खाता और उसकी जानकारी हटाने का अनुरोध एडमिन को भेजा जाएगा। भेजें?"))return;var m=$("pwM");m.className="msg";
+ try{await api("/rest/v1/teacher_comments",{method:"POST",headers:{Prefer:"return=minimal"},body:{kind:"खाता हटाना",body:"मेरा खाता और जानकारी हटाई जाए। मोबाइल: "+me.mobile}});m.className="msg ok";m.textContent="अनुरोध भेज दिया गया। एडमिन इसे हटा देंगे।"}catch(e){m.textContent=nice(e.message)}
+}
+async function changePw(){
+ var a=$("pw0").value,b=$("pw1").value,c=$("pw2").value,m=$("pwM");m.className="msg";
+ if(!a||!b){m.textContent="सभी खाने भरिए।";return}
+ if(b.length<8){m.textContent="नया पासवर्ड कम से कम 8 अक्षर का हो।";return}
+ if(b!==c){m.textContent="नए पासवर्ड दोनों बार एक जैसे नहीं हैं।";return}
+ if(b===a){m.textContent="नया पासवर्ड पुराने से अलग रखिए।";return}
+ $("pwB").disabled=true;
+ try{
+  var j=await api("/auth/v1/token?grant_type=password",{method:"POST",auth:false,body:{email:me.mobile+DOM,password:a}});setSess(j);
+  await api("/auth/v1/user",{method:"PUT",body:{password:b}});
+  ["pw0","pw1","pw2"].forEach(function(i){$(i).value=""});m.className="msg ok";m.textContent="पासवर्ड बदल गया। अगली बार नए पासवर्ड से लॉगिन कीजिए।";
+ }catch(e){m.textContent=/invalid login/i.test(e.message)?"अभी का पासवर्ड गलत है।":nice(e.message)}
+ $("pwB").disabled=false;
+}
+/* A4 प्रश्न पत्र: ऊपर 20% विवरण, नीचे 80% लिखने की जगह */
+function cleanQ(q){return String(q==null?"":q).replace(/^\s*[(\[]?[0-9\u0966-\u096F]{1,3}\s*[.)\]:\u0964](?![0-9\u0966-\u096F])\s*/,"").trim()}
+function sheetHtml(p,m){
+ var d=m.date?m.date.split("-").reverse().join("/"):"";
+ return'<div class="wm">'+esc(m.school||"शिक्षक साथी")+'</div><div class="in"><div class="hd"><h3>'+esc(m.school||"विद्यालय का नाम")+'</h3><div class="sub2">'+esc(p.exam_type)+' प्रश्न पत्र</div><div class="meta"><div>शिक्षक: '+esc(m.teacher||"........")+'</div><div>दिनांक: '+esc(d)+'</div><div>कक्षा: '+esc(p.class_name)+'</div><div>विषय: '+esc(p.subject)+'</div><div>पूर्णांक: '+esc(p.marks||"")+'</div></div><div>नाम: ______________________ &nbsp; रोल नं.: ______</div></div><div class="bd"><h4 style="text-align:center;margin:8px 0 0">'+esc(p.title)+'</h4><ol>'+(p.questions||[]).map(function(q){return"<li>"+esc(cleanQ(q))+"</li>"}).join("")+'</ol></div></div>';
+}
+/* प्रश्न पत्र (एडमिन के तैयार, शिक्षक सिर्फ़ चुनते और प्रिंट करते हैं) */
+var QP={},curQ=null;
+async function listQ(){
+ var u="/rest/v1/question_papers?select=*&status=eq.published&order=published_at.desc&limit=100",e=$("tqE").value,c=$("tqC").value,sb=$("tqS").value,q=$("tqQ").value.trim().replace(/[,()*%]/g,"");
+ if(e)u+="&exam_type=eq."+encodeURIComponent(e);if(c)u+="&class_name=eq."+c;if(sb)u+="&subject=eq."+encodeURIComponent(sb);if(q)u+="&title=ilike."+encodeURIComponent("*"+q+"*");
+ try{
+  var l=await api(u);QP={};
+  $("tqList").innerHTML=l.length?l.map(function(x){QP[x.id]=x;return'<div class="item"><span class="badge b2">'+esc(x.exam_type)+'</span><span class="badge b4">कक्षा '+x.class_name+'</span><span class="badge b3">'+esc(x.subject)+'</span>'+(x.version>1?'<span class="badge b1">संशोधित v'+x.version+'</span>':'')+'<b style="display:block">'+esc(x.title)+'</b><div class="acts"><button class="btn s" onclick="pickQ('+x.id+')">चुनें</button></div></div>'}).join(""):'<div style="padding:14px;color:var(--mute);text-align:center">कोई प्रश्न पत्र नहीं मिला।</div>';
+  $("tqMsg").textContent="";
+ }catch(e2){$("tqMsg").textContent=nice(e2.message)}
+}
+function pickQ(id){
+ curQ=QP[id];var p={};try{p=JSON.parse(localStorage.getItem("cp_"+S.uid)||"{}")}catch(e){}
+ $("mS").value=p.s||me.school||"";$("mT").value=p.t||me.full_name||"";$("mD").value=today();
+ $("qL").classList.add("hide");$("qMk").classList.remove("hide");drawP();ev("paper_view");window.scrollTo(0,0);
+}
+function backQ(){$("qMk").classList.add("hide");$("qL").classList.remove("hide")}
+function qMeta(){return{school:$("mS").value,teacher:$("mT").value,date:$("mD").value}}
+function drawP(){if(!curQ)return;var h=sheetHtml(curQ,qMeta());$("pvSheet").innerHTML=h;$("papSheet").innerHTML=h}
+function doPrint(){
+ drawP();document.body.classList.add("pp");ev("paper_print");
+ window.onafterprint=function(){document.body.classList.remove("pp")};setTimeout(function(){document.body.classList.remove("pp")},120000);
+ try{window.print()}catch(e){document.body.classList.remove("pp");$("mMsg").textContent="प्रिंट नहीं खुला। ब्राउज़र के मेन्यू से प्रिंट चुनिए।"}
+}
+function waShare(){
+ var c=curQ,m=qMeta(),t="*"+c.exam_type+" प्रश्न पत्र*\nकक्षा "+c.class_name+" | "+c.subject+(c.marks?" | पूर्णांक "+c.marks:"")+"\nदिनांक "+fmt(m.date)+"\n\n"+(c.questions||[]).map(function(q,i){return(i+1)+". "+cleanQ(q)}).join("\n")+"\n\n- "+m.teacher+", "+m.school;
+ window.open("https://wa.me/?text="+encodeURIComponent(t),"_blank");
+}
+/* PDF और Word (docx) बनाकर शेयर करना */
+function loadJs(u){return new Promise(function(ok,no){var e=document.createElement("script");e.src=u;e.onload=ok;e.onerror=function(){no(new Error("ज़रूरी लाइब्रेरी नहीं खुली। इंटरनेट जाँचिए।"))};document.head.appendChild(e)})}
+async function needLibs(l){for(var i=0;i<l.length;i++){if(!window[l[i][0]])await loadJs(l[i][1])}}
+function qFile(ext){return"prashn-patra-kaksha"+curQ.class_name+"-"+Date.now()+"."+ext}
+async function pdfBlob(){
+ await needLibs([["html2canvas","https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"],["jspdf","https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"]]);
+ try{await document.fonts.ready}catch(e){}
+ var box=document.createElement("div");box.style.cssText="position:fixed;left:-10000px;top:0;background:#fff";
+ box.innerHTML='<div class="sheet" style="border:0;margin:0">'+sheetHtml(curQ,qMeta())+'</div>';document.body.appendChild(box);
+ var cv;try{cv=await html2canvas(box.firstChild,{scale:2,backgroundColor:"#ffffff"})}finally{document.body.removeChild(box)}
+ var d=new window.jspdf.jsPDF({unit:"mm",format:"a4"});d.addImage(cv.toDataURL("image/jpeg",0.92),"JPEG",0,0,210,297);return d.output("blob");
+}
+async function docxBlob(){
+ await needLibs([["JSZip","https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"]]);
+ var m=qMeta(),X=function(t){return String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")};
+ function run(t,o){o=o||{};var z=o.s||26;return'<w:r><w:rPr><w:rFonts w:ascii="Mangal" w:hAnsi="Mangal" w:cs="Mangal" w:eastAsia="Mangal"/>'+(o.b?'<w:b/><w:bCs/>':'')+'<w:sz w:val="'+z+'"/><w:szCs w:val="'+z+'"/></w:rPr><w:t xml:space="preserve">'+X(t)+'</w:t></w:r>'}
+ function para(t,o){o=o||{};return'<w:p><w:pPr>'+(o.c?'<w:jc w:val="center"/>':'')+'<w:spacing w:after="'+(o.a==null?120:o.a)+'"/></w:pPr>'+run(t,o)+'</w:p>'}
+ var c=curQ,b=para(m.school||"विद्यालय",{c:1,b:1,s:36})+para(c.exam_type+" प्रश्न पत्र",{c:1,s:28})+
+  para("शिक्षक: "+(m.teacher||"........")+"          दिनांक: "+fmt(m.date),{})+para("कक्षा: "+c.class_name+"          विषय: "+c.subject+"          पूर्णांक: "+(c.marks||""),{})+
+  para("नाम: ______________________     रोल नं.: ______",{a:200})+para(c.title,{c:1,b:1,s:30,a:200});
+ (c.questions||[]).forEach(function(q,i){b+=para((i+1)+". "+q,{a:700})});
+ var doc='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+b+'<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1000" w:right="1100" w:bottom="1000" w:left="1100" w:header="500" w:footer="500" w:gutter="0"/></w:sectPr></w:body></w:document>';
+ var z=new JSZip();
+ z.file("[Content_Types].xml",'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>');
+ z.file("_rels/.rels",'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>');
+ z.file("word/document.xml",doc);
+ return z.generateAsync({type:"blob",mimeType:"application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
+}
+async function shareFile(blob,name,type){
+ var m=$("mMsg"),f=new File([blob],name,{type:type});
+ try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:curQ.title});m.className="msg ok";m.textContent="शेयर हो गया।";return}}catch(e){if(e&&e.name==="AbortError"){m.textContent="";return}}
+ var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();
+ m.className="msg ok";m.textContent="फ़ाइल डाउनलोड हो गई। अब फ़ाइल्स या गैलरी से WhatsApp आदि में भेजिए।";
+}
+async function sharePdf(){var m=$("mMsg");m.className="msg";m.textContent="PDF बन रही है...";try{drawP();await shareFile(await pdfBlob(),qFile("pdf"),"application/pdf")}catch(e){m.className="msg";m.textContent="PDF नहीं बन सकी: "+e.message}}
+async function shareDocx(){var m=$("mMsg");m.className="msg";m.textContent="Word फ़ाइल बन रही है...";try{await shareFile(await docxBlob(),qFile("docx"),"application/vnd.openxmlformats-officedocument.wordprocessingml.document")}catch(e){m.className="msg";m.textContent="Word फ़ाइल नहीं बन सकी: "+e.message}}
+
+/* समाचार, आदेश और सूचना */
+var CATC=[];
+function jl(k){try{return JSON.parse(localStorage.getItem(k)||"[]")}catch(e){return[]}}
+function setB(id,n){$(id).textContent=n;$(id).classList.toggle("hide",!n)}
+async function badges(){
+ try{
+  CATC=await api("/rest/v1/content_categories?select=id,name,is_notice");
+  var ids=CATC.filter(function(c){return c.is_notice}).map(function(c){return c.id}),seen=jl("sn_"+S.uid),n=0;
+  if(ids.length){var l=await api("/rest/v1/content?select=id&publish_date=lte."+today()+"&category_id=in.("+ids.join(",")+")&limit=300");n=l.filter(function(x){return seen.indexOf(x.id)<0}).length}
+  setB("bgN",n);
+ }catch(e){}
+ try{var r=await api("/rest/v1/teacher_comments?select=id&replied_at=not.is.null&limit=300"),sk=jl("sk_"+S.uid);setB("bgK",r.filter(function(x){return sk.indexOf(x.id)<0}).length)}catch(e){}
+}
+async function loadN(){
+ if(!CATC.length){try{CATC=await api("/rest/v1/content_categories?select=id,name,is_notice")}catch(e){}}
+ $("nC").innerHTML="<option value=''>सभी श्रेणी</option>"+CATC.map(function(c){return"<option value='"+c.id+"'>"+esc(c.name)+"</option>"}).join("");
+ var o="<option value=''>आज की सामग्री (या महीना चुनें)</option>",b;
+ for(var i=0;i<12;i++){b=new Date(today()+"T12:00:00");b.setDate(1);b.setMonth(b.getMonth()-i);o+="<option value='"+b.toISOString().slice(0,7)+"'>"+MN[b.getMonth()]+" "+b.getFullYear()+"</option>"}
+ $("nM").innerHTML=o;listN();
+}
+async function listN(){
+ var c=$("nC").value,m=$("nM").value,q=$("nQ").value.trim().replace(/[,()*%]/g,""),t=today(),u="/rest/v1/content?select=*&order=publish_date.desc,id.desc&limit=100";
+ if(c)u+="&category_id=eq."+c;
+ if(m){var nx=new Date(m+"-01T12:00:00");nx.setMonth(nx.getMonth()+1);u+="&publish_date=gte."+m+"-01&publish_date=lt."+nx.toISOString().slice(0,10)+"&publish_date=lte."+t}
+ else if(!q&&!c)u+="&publish_date=eq."+t;else u+="&publish_date=lte."+t;
+ if(q)u+="&or="+encodeURIComponent("(title.ilike.*"+q+"*,body.ilike.*"+q+"*)");
+ try{
+  var l=await api(u),cn={},nt={};CATC.forEach(function(x){cn[x.id]=x.name;nt[x.id]=x.is_notice});
+  var sn=jl("sn_"+S.uid),was=sn.slice();
+  $("nList").innerHTML=l.length?l.map(function(x){
+   var isN=nt[x.category_id],fresh=isN&&was.indexOf(x.id)<0;if(isN&&sn.indexOf(x.id)<0)sn.push(x.id);
+   return'<div class="item"><span class="badge" style="background:'+(isN?'#d92d20':'#0f6b5c')+'">'+(isN?'🔔 ':'')+esc(cn[x.category_id]||"")+'</span><span class="badge b1">'+fmt(x.publish_date)+'</span>'+(fresh?'<span class="badge b2">नई</span>':'')+'<b style="display:block">'+esc(x.title)+'</b><div class="note">'+esc(x.body)+'</div>'+(x.image_path?(/\.pdf($|\?)/i.test(x.image_path)?'<div><a href="'+esc(x.image_path)+'" target="_blank" rel="noopener">📎 PDF खोलें</a></div>':'<img class="pic" src="'+esc(x.image_path)+'">'):'')+(x.link?'<div><a href="'+esc(x.link)+'" target="_blank" rel="noopener">लिंक खोलें</a></div>':'')+'</div>'}).join(""):'<div style="padding:14px;color:var(--mute);text-align:center">'+((m||q||c)?"कोई सामग्री नहीं मिली।":"आज की कोई सामग्री नहीं है। पहले की सामग्री के लिए महीना या श्रेणी चुनिए, या शब्द खोजिए।")+'</div>';
+  try{localStorage.setItem("sn_"+S.uid,JSON.stringify(sn))}catch(e){}
+  $("nMsg").textContent="";
+ }catch(e){$("nMsg").textContent=nice(e.message)}
+}
+
+/* एडमिन को संदेश */
+function cmt(kind,ctx){show("K");var k=$("kK"),ok=false;for(var i=0;i<k.options.length;i++)if(k.options[i].text===kind){k.selectedIndex=i;ok=true}if(!ok)k.value="अन्य";$("kB").value=ctx?"["+ctx+"]\n":"";$("kB").focus()}
+async function sendK(){
+ var b=$("kB").value.trim(),m=$("kMsg");m.className="msg";
+ if(!b){m.textContent="संदेश लिखिए।";return}
+ $("kBtn").disabled=true;
+ try{await api("/rest/v1/teacher_comments",{method:"POST",headers:{Prefer:"return=minimal"},body:{kind:$("kK").value,body:b}});$("kB").value="";m.className="msg ok";m.textContent="संदेश एडमिन को भेज दिया गया।";listK()}
+ catch(e){m.textContent=nice(e.message)}
+ $("kBtn").disabled=false;
+}
+async function kHide(id){if(!confirm("यह संदेश आपकी सूची से हटाएँ?"))return;try{await api("/rest/v1/rpc/hide_my_comment",{method:"POST",body:{p_id:id}});listK()}catch(e){$("kMsg").className="msg";$("kMsg").textContent=nice(e.message)}}
+async function kEdit(id){var x=KL.filter(function(q){return q.id===id})[0];if(!x)return;var t=prompt("संदेश बदलिए:",x.body);if(t==null||!t.trim())return;try{await api("/rest/v1/rpc/edit_my_comment",{method:"POST",body:{p_id:id,p_body:t.trim()}});listK()}catch(e){$("kMsg").className="msg";$("kMsg").textContent=nice(e.message)}}
+async function listK(){
+ try{
+  var U="/rest/v1/teacher_comments?select=*&order=created_at.desc&limit=100",l;try{l=await api(U+"&hidden_teacher=is.false")}catch(e0){l=await api(U)}var sk=jl("sk_"+S.uid);
+  KL=l;$("kCnt").textContent=l.length+" संदेश";
+  $("kList").innerHTML=l.length?l.map(function(x){
+   if(x.reply&&sk.indexOf(x.id)<0)sk.push(x.id);
+   return'<div class="item"><span class="badge b4">'+esc(x.kind)+'</span><span class="badge b1">'+fmt(String(x.created_at).slice(0,10))+'</span><div class="note">'+esc(x.body)+'</div>'+(x.reply?'<div class="note" style="color:var(--ink);border-left:3px solid var(--pri);padding-left:8px"><b>एडमिन का जवाब:</b><br>'+esc(x.reply)+'</div>':'<div class="sub" style="margin:0">अभी जवाब नहीं आया।</div>')+'<div class="acts">'+(x.reply?'':'<button class="btn g s" onclick="kEdit('+x.id+')">एडिट</button>')+'<button class="btn d s" onclick="kHide('+x.id+')">🗑 हटाएँ</button></div></div>'}).join(""):'<div style="padding:14px;color:var(--mute);text-align:center">अभी कोई संदेश नहीं भेजा।</div>';
+  try{localStorage.setItem("sk_"+S.uid,JSON.stringify(sk))}catch(e){}
+ }catch(e){$("kList").innerHTML='<div class="msg" style="padding:10px">'+esc(nice(e.message))+'</div>'}
+}
+/* ---- ऐप जैसा जोड़ना, गिनती ---- */
+var IP=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();IP=e;var b=document.getElementById("inst");if(b)b.classList.remove("hide")});
+function doInstall(){if(IP){IP.prompt();IP=null;$("inst").classList.add("hide")}}
+function track(){
+ try{if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){})}catch(e){}
+ window.addEventListener("appinstalled",function(){api("/rest/v1/events",{method:"POST",auth:false,headers:{Prefer:"return=minimal"},body:{event:"install"}}).catch(function(){})});
+ try{var t=today();if(localStorage.getItem("vd")!==t){localStorage.setItem("vd",t);api("/rest/v1/events",{method:"POST",auth:false,headers:{Prefer:"return=minimal"},body:{event:"visit"}}).catch(function(){})}}catch(e){}
+}
+/* ---- फ़ोटो R2 (Cloudflare Worker) से ---- */
+function shrink(file,max,q){return new Promise(function(ok,no){var u=URL.createObjectURL(file),im=new Image();im.onload=function(){var k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(function(b){b?ok(b):no(new Error("फ़ोटो तैयार नहीं हुई"))},"image/jpeg",q)};im.onerror=function(){no(new Error("यह फ़ोटो खुल नहीं सकी"))};im.src=u})}
+async function upImg(file,folder){
+ if(!WORKER)throw new Error("फ़ोटो रखने की जगह (R2) अभी जुड़ी नहीं है।");
+ var b=await shrink(file,1280,0.75);await fresh();
+ var r=await fetch(WORKER+"/upload?folder="+encodeURIComponent(folder),{method:"POST",headers:{Authorization:"Bearer "+S.access_token,"Content-Type":"image/jpeg"},body:b}),j=await r.json().catch(function(){return{}});
+ if(!r.ok)throw new Error(j.error||"अपलोड नहीं हुआ");return j.url;
+}
+function delFile(u){try{if(!WORKER)return;var uu=new URL(u),k=uu.searchParams.get("key")||uu.pathname.slice(1);fresh().then(function(){fetch(WORKER+"/file?key="+encodeURIComponent(k),{method:"DELETE",headers:{Authorization:"Bearer "+S.access_token}}).catch(function(){})})}catch(e){}}
+/* ---- डायरी ---- */
+var DYI=[],dyEdit=0,DY={};
+function dyPrev(){$("dyPv").innerHTML=DYI.map(function(u,i){return'<span style="position:relative;display:inline-block;margin:4px"><img src="'+esc(ik(u))+'" style="height:70px;border-radius:8px"><button class="btn d s" style="position:absolute;top:0;right:0;padding:0 7px" onclick="dyDelImg('+i+')">×</button></span>'}).join("")}
+function dyRst(){dyEdit=0;DYI=[];$("dyT").value="";$("dyB").value="";$("dyR").value="";$("dyF").value="";dyPrev();$("dyH").textContent="नया नोट";$("dyBtn").textContent="सहेजें";$("dyX").classList.add("hide")}
+function dyDelImg(i){var u=DYI.splice(i,1)[0];delFile(u);dyPrev()}
+async function dyPick(inp){
+ var fs=Array.prototype.slice.call(inp.files||[]),m=$("dyMsg");m.className="msg";
+ for(var k=0;k<fs.length;k++){if(DYI.length>=6){m.textContent="एक नोट में 6 फ़ोटो तक।";break}try{m.textContent="फ़ोटो जोड़ रहे हैं...";DYI.push(await upImg(fs[k],"diary"));dyPrev();m.textContent=""}catch(e){m.textContent=nice(e.message);break}}
+ inp.value="";
+}
+async function dySave(){
+ var o={title:$("dyT").value.trim()||null,body:$("dyB").value.trim(),remind_at:$("dyR").value?new Date($("dyR").value).toISOString():null,images:DYI,updated_at:new Date().toISOString()},m=$("dyMsg");m.className="msg";
+ if(!o.body){m.textContent="नोट लिखिए।";return}
+ $("dyBtn").disabled=true;
+ try{if(dyEdit)await api("/rest/v1/diary_notes?id=eq."+dyEdit,{method:"PATCH",body:o});else await api("/rest/v1/diary_notes",{method:"POST",headers:{Prefer:"return=minimal"},body:o});var w=dyEdit;dyRst();m.className="msg ok";m.textContent=w?"बदलाव सहेज लिया गया।":"नोट सहेज लिया गया।";dyList()}
+ catch(e){m.textContent=nice(e.message)}
+ $("dyBtn").disabled=false;
+}
+async function dyList(){
+ var q=$("dyQ").value.trim().replace(/[,()*%]/g,""),u="/rest/v1/diary_notes?select=*&order=created_at.desc&limit=200";
+ if(q)u+="&or="+encodeURIComponent("(title.ilike.*"+q+"*,body.ilike.*"+q+"*)");
+ try{
+  var l=await api(u);DY={};$("dyCnt").textContent=l.length+" नोट";
+  $("dyList").innerHTML=l.length?l.map(function(x){DY[x.id]=x;
+   return'<div class="item"><span class="badge b1">'+fmt(String(x.created_at).slice(0,10))+'</span>'+(x.remind_at?'<span class="badge b2">⏰ '+new Date(x.remind_at).toLocaleString("hi-IN",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})+'</span>':'')+(x.title?'<b style="display:block">'+esc(x.title)+'</b>':'')+'<div class="note">'+esc(x.body)+'</div>'+(x.images||[]).map(function(u){return'<a href="'+esc(ik(u))+'" target="_blank" rel="noopener"><img class="pic" style="max-height:200px" src="'+esc(ik(u))+'"></a>'}).join("")+
+   '<div class="acts">'+(x.remind_at?'<button class="btn g s" onclick="alarmGo('+x.id+')">⏰ अलार्म</button><button class="btn g s" onclick="icsGo('+x.id+')">📅 कैलेंडर</button>':'')+'<button class="btn g s" onclick="dyEd('+x.id+')">एडिट</button><button class="btn d s" onclick="dyDel('+x.id+')">हटाएँ</button></div></div>'}).join(""):'<div style="padding:14px;color:var(--mute);text-align:center">अभी कोई नोट नहीं है।</div>';
+ }catch(e){$("dyList").innerHTML='<div class="msg" style="padding:10px">'+esc(nice(e.message))+'</div>'}
+}
+function dyEd(id){var x=DY[id];dyEdit=id;DYI=(x.images||[]).slice();$("dyT").value=x.title||"";$("dyB").value=x.body;
+ var d=x.remind_at?new Date(x.remind_at):null;$("dyR").value=d?new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,16):"";
+ dyPrev();$("dyH").textContent="नोट में बदलाव";$("dyBtn").textContent="बदलाव सहेजें";$("dyX").classList.remove("hide");$("dyH").scrollIntoView({behavior:"smooth"})}
+async function dyDel(id){if(!confirm("यह नोट और उसकी फ़ोटो हटाएँ?"))return;try{(DY[id].images||[]).forEach(delFile);await api("/rest/v1/diary_notes?id=eq."+id,{method:"DELETE"});if(dyEdit===id)dyRst();dyList()}catch(e){$("dyMsg").textContent=nice(e.message)}}
+function alarmGo(id){
+ var n=DY[id],d=new Date(n.remind_at);
+ if(/Android/i.test(navigator.userAgent)){location.href="intent:#Intent;action=android.intent.action.SET_ALARM;i.android.intent.extra.alarm.HOUR="+d.getHours()+";i.android.intent.extra.alarm.MINUTES="+d.getMinutes()+";S.android.intent.extra.alarm.MESSAGE=Diary note;end"}
+ else icsGo(id);
+}
+function icsGo(id){
+ var n=DY[id],d=new Date(n.remind_at),E=function(t){return String(t||"").replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\r?\n/g,"\\n")},Z=function(x){return x.toISOString().replace(/[-:]/g,"").slice(0,15)+"Z"};
+ var t=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Shikshak Sathi//HI","BEGIN:VEVENT","UID:dy"+id+"@shikshak-sathi","DTSTAMP:"+Z(new Date()),"DTSTART:"+Z(d),"DTEND:"+Z(new Date(d.getTime()+1800000)),"SUMMARY:"+E(n.title||"डायरी नोट"),"DESCRIPTION:"+E((n.body||"").slice(0,300)),"BEGIN:VALARM","TRIGGER:PT0S","ACTION:DISPLAY","DESCRIPTION:"+E(n.title||"डायरी नोट"),"END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
+ var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/calendar"}));a.download="diary-"+id+".ics";document.body.appendChild(a);a.click();a.remove();
+}
+/* ---- मासिक पाठ योजना ---- */
+var MPD={};
+function planSheet(p){
+ var m=p.plan_month.slice(0,7).split("-"),pr={};try{pr=JSON.parse(localStorage.getItem("cp_"+S.uid)||"{}")}catch(e){}
+ return'<div class="wm">'+esc(pr.s||me.school||"शिक्षक साथी")+'</div><div class="in"><div class="hd"><h3>'+esc(pr.s||me.school||"")+'</h3><div class="sub2">मासिक पाठ योजना · '+MN[+m[1]-1]+' '+m[0]+'</div><div class="meta"><div>शिक्षक: '+esc(pr.t||me.full_name)+'</div><div>कक्षा: '+p.class_name+'</div><div>विषय: '+esc(p.subject)+'</div></div></div><div class="bd"><h4 style="text-align:center;margin:8px 0">'+esc(p.title)+'</h4><div style="white-space:pre-wrap;font-size:14px">'+esc(p.content)+'</div></div></div>';
+}
+function loadMP(){
+ var o="",b;for(var i=-1;i<12;i++){b=new Date(today()+"T12:00:00");b.setDate(1);b.setMonth(b.getMonth()-i);o+="<option value='"+b.toISOString().slice(0,7)+"'>"+MN[b.getMonth()]+" "+b.getFullYear()+"</option>"}
+ $("pmM").innerHTML=o;$("pmM").value=today().slice(0,7);$("pmC").innerHTML=opts(["1","2","3","4","5","6","7","8"],"सभी वर्ग");$("pmS").innerHTML=opts(SUBS,"सभी विषय");listMP();
+}
+async function listMP(){
+ var u="/rest/v1/monthly_plans?select=*&plan_month=eq."+$("pmM").value+"-01&order=class_name.asc,subject.asc&limit=100",c=$("pmC").value,sb=$("pmS").value;
+ if(c)u+="&class_name=eq."+c;if(sb)u+="&subject=eq."+encodeURIComponent(sb);
+ try{
+  var l=await api(u);MPD={};
+  $("pmList").innerHTML=l.length?l.map(function(x){MPD[x.id]=x;return'<div class="item"><span class="badge b4">कक्षा '+x.class_name+'</span><span class="badge b3">'+esc(x.subject)+'</span><b style="display:block">'+esc(x.title)+'</b><div class="note">'+esc(x.content)+'</div></div>'}).join(""):'<div style="padding:14px;color:var(--mute);text-align:center">इस महीने की योजना अभी तैयार नहीं है।</div>';
+  $("pmMsg").textContent="";
+ }catch(e){$("pmMsg").textContent=nice(e.message)}
+}
+function mpPrint(id){
+ $("papSheet").className="sheet long";$("papSheet").innerHTML=planSheet(MPD[id]);document.body.classList.add("pp");
+ window.onafterprint=function(){document.body.classList.remove("pp");$("papSheet").className="sheet"};setTimeout(function(){document.body.classList.remove("pp")},120000);
+ try{window.print()}catch(e){document.body.classList.remove("pp");alert("प्रिंट नहीं खुला। ब्राउज़र के मेन्यू से प्रिंट चुनिए।")}
+}
+/* ---- क्विज़ ---- */
+var ZQ={};
+function qzUrl(id){return location.origin+location.pathname.replace(/[^\/]*$/,"")+"quiz.html?id="+id}
+function loadZ(){$("zqC").innerHTML=opts(["1","2","3","4","5","6","7","8"],"सभी वर्ग");$("zqS").innerHTML=opts(SUBS,"सभी विषय");listZ()}
+async function listZ(){
+ var u="/rest/v1/quizzes?select=id,title,class_name,subject,questions&status=eq.published&order=created_at.desc&limit=100",c=$("zqC").value,sb=$("zqS").value;
+ if(c)u+="&class_name=eq."+c;if(sb)u+="&subject=eq."+encodeURIComponent(sb);
+ try{
+  var l=await api(u);ZQ={};
+  $("zList").innerHTML=l.length?l.map(function(x){ZQ[x.id]=x;return'<div class="item">'+(x.class_name?'<span class="badge b4">कक्षा '+x.class_name+'</span>':'')+(x.subject?'<span class="badge b3">'+esc(x.subject)+'</span>':'')+'<span class="badge b1">'+(x.questions||[]).length+' प्रश्न</span><b style="display:block">'+esc(x.title)+'</b><div class="acts"><button class="btn s" onclick="window.open(qzUrl('+x.id+'),\'_blank\')">▶ खेलकर देखें</button><button class="btn g s" onclick="zCopy('+x.id+')">🔗 लिंक कॉपी</button><button class="btn g s" onclick="zWa('+x.id+')">WhatsApp</button></div></div>'}).join(""):'<div style="padding:14px;color:var(--mute);text-align:center">अभी कोई क्विज़ नहीं है।</div>';
+  $("zMsg").textContent="";
+ }catch(e){$("zMsg").textContent=nice(e.message)}
+}
+async function zCopy(id){try{await navigator.clipboard.writeText(qzUrl(id));alert("लिंक कॉपी हो गया।")}catch(e){prompt("इस लिंक को कॉपी कीजिए:",qzUrl(id))}}
+function zWa(id){window.open("https://wa.me/?text="+encodeURIComponent("क्विज़: "+ZQ[id].title+"\n"+qzUrl(id)),"_blank")}
+(async function(){
+ track();
+ var n=["1","2","3","4","5","6","7","8"];
+ $("dBell").innerHTML="<option value=''>घंटी चुनें</option>"+n.map(function(x){return"<option value='"+x+"'>"+x+"वीं घंटी</option>"}).join("");
+ $("dCls").innerHTML=opts(n,"कक्षा चुनें");$("dSub").innerHTML=opts(SUBS,"विषय चुनें");$("tqC").innerHTML=opts(n,"सभी वर्ग");$("tqS").innerHTML=opts(SUBS,"सभी विषय");
+ await loadLoc();
+ try{S=JSON.parse(localStorage.getItem("ss")||"null")}catch(e){S=null}
+ if(S){try{await enter()}catch(e){logout()}}
+})();
+</script>
+</body>
+</html>
